@@ -16,7 +16,7 @@ public class Starter {
         ChessBoard chessBoard = new ChessBoard();
 
         JFrame jFrame = new JFrame();
-        jFrame.setSize(440, 440);
+        jFrame.setSize(418, 440);
         jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(new BorderLayout(1,1));
         jFrame.add(chessBoard);

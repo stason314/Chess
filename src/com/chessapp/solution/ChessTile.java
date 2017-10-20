@@ -11,30 +11,24 @@ import java.awt.*;
  */
 public class ChessTile {
 
-    Pawn[] pawns;
     ChessColor chessColor;
+    public int x, y;
 
     public ChessTile() {
-        pawns = new Pawn[16];
+        //x = 0;
+        //y = 0;
+    }
+
+    public void draw(Graphics g, Color color){
+        g.setColor(color);
+        g.drawRect(x, y, 50, 50);
+        g.fillRect(x, y, 50, 50);
 
 
     }
 
-    public void draw(Graphics g, Color color, int x, int y){
-        g.setColor(color);
-        g.drawRect(x, y, 50, 50);
-        g.fillRect(x, y, 50, 50);
-        for (int i = 0; i < 8; i++){
-            if (i < 8){
-                pawns[i] = new Pawn(chessColor.WHITE);
-                pawns[i].draw(g, x+25, y+25);
-            }else {
-                pawns[i] = new Pawn(chessColor.BLACK);
-                pawns[i].draw(g, x+25, y+25);
-            }
-
-        }
-
+    public void drawFigure(Graphics g, Figure figure){
+        figure.draw(g, x, y);
     }
 
 }

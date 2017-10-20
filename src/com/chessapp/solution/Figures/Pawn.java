@@ -12,8 +12,13 @@ import java.util.List;
  */
 public class Pawn extends Figure {
 
+    ChessPosition chessPosition;
+
     public Pawn(ChessColor chessColor) {
         color = chessColor;
+        x = 0;
+        y = 0;
+        chessPosition = new ChessPosition(x, y);
     }
 
     @Override
@@ -24,7 +29,7 @@ public class Pawn extends Figure {
     @Override
     public void draw(Graphics g,int x, int y) {
         Color black = new Color(0);
-        Color white = new Color(255, 255, 255);
+        Color white = new Color(255, 234, 0);
         if (color == color.BLACK){
             g.setColor(black);
         }
@@ -32,7 +37,7 @@ public class Pawn extends Figure {
             g.setColor(white);
         }
 
-        g.drawString("P", x, y);
+        g.drawString("P", x + 25, y + 25);
 
     }
 }
