@@ -4,6 +4,7 @@ import com.chessapp.solution.ChessBoard;
 import com.chessapp.solution.ChessPosition;
 import com.chessapp.solution.enums.ChessColor;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public abstract class Figure {
 
     public abstract List<ChessPosition> move(ChessBoard chessBoard, int x, int y);
 
-    public abstract String toString();
+    public abstract void draw(Graphics g, int x, int y);
 
 
 }

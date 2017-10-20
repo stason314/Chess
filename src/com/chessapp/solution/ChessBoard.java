@@ -1,5 +1,8 @@
 package com.chessapp.solution;
 
+import com.chessapp.solution.Figures.Pawn;
+import com.chessapp.solution.enums.ChessColor;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,8 +13,13 @@ public class ChessBoard extends JComponent{
 
     public ChessTile[][] chessTiles;
 
+
     public ChessBoard() {
         chessTiles = new ChessTile[8][8];
+
+
+
+
 
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
@@ -19,7 +27,6 @@ public class ChessBoard extends JComponent{
             }
         }
 
-        chessTiles[0][6].test();
     }
 
     @Override
@@ -32,12 +39,8 @@ public class ChessBoard extends JComponent{
         for (int i = 0; i < 8; i++){
             y = 0;
             for (int j = 0; j < 8; j++) {
-                //chessTiles[i][j + 1].draw(g, tileWhite, y, x);
-
-                //chessTiles[i][j+1].draw(g,newColor, y+ 50, x + 50);
                 if ((i + j) % 2 == 0) {
                     chessTiles[i][j].draw(g, tileWhite, y, x);
-
                 }
                 else {
                     chessTiles[i][j].draw(g, tileBlack, y, x);
@@ -45,6 +48,7 @@ public class ChessBoard extends JComponent{
             }
             x += 50;
         }
+
 
     }
 
