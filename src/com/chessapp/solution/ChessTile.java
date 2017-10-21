@@ -19,7 +19,7 @@ public class ChessTile {
         //y = 0;
     }
 
-    public void draw(Graphics g, Color color){
+    public void draw(Graphics2D g, Color color){
         g.setColor(color);
         g.drawRect(x, y, 50, 50);
         g.fillRect(x, y, 50, 50);
@@ -27,7 +27,7 @@ public class ChessTile {
 
     }
 
-    public void drawFigure(Graphics g, Figure figure){
+    public void drawFigure(Graphics2D g, Figure figure){
         figure.draw(g, x, y);
     }
 

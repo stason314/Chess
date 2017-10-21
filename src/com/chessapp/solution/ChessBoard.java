@@ -3,20 +3,25 @@ package com.chessapp.solution;
 import com.chessapp.solution.Figures.Pawn;
 import com.chessapp.solution.enums.ChessColor;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  * Created by Admin on 19.10.2017.
  */
-public class ChessBoard extends JComponent{
+public class ChessBoard {
 
     public ChessTile[][] chessTiles;
-    Pawn pawn;
+    public Pawn[] pawnsWhite;
+    public Pawn[] pawnsBlack;
+    java.util.List<ChessPosition> moveList;
 
 
     public ChessBoard() {
+        moveList = new ArrayList<>();
         chessTiles = new ChessTile[8][8];
+        pawnsWhite = new Pawn[8];
+        pawnsBlack = new Pawn[8];
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 chessTiles[i][j] = new ChessTile();
@@ -25,16 +30,26 @@ public class ChessBoard extends JComponent{
             }
         }
 
+        for (int i = 0; i < 8; i ++){
+            pawnsWhite[i] = new Pawn(ChessColor.WHITE);
+            pawnsWhite[i].x = i;
+            pawnsWhite[i].y = 6;
+            pawnsBlack[i] = new Pawn(ChessColor.BLACK);
+            pawnsBlack[i].x = i;
+            pawnsBlack[i].y = 1;
+        }
 
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void update(){
+        int randNum = (int) (Math.random() * 8);
+        pawnsWhite[randNum].update();
+    }
+
+
+    public void draw(Graphics2D g) {
         Color tileBlack = new Color(166, 83, 0);
         Color tileWhite = new Color(0xD9D9D9);
-        int x = 0;
-        int y = 0;
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++) {
                 if ((i + j) % 2 == 0) {
@@ -47,15 +62,12 @@ public class ChessBoard extends JComponent{
         }
 
         for (int i = 0; i < 8; i ++){
-            pawn = new Pawn(ChessColor.WHITE);
-            chessTiles[i][6].drawFigure(g, pawn);
+            chessTiles[pawnsWhite[i].x][pawnsWhite[i].y].drawFigure(g, pawnsWhite[i]);
+            System.out.println(pawnsWhite[i].x);
         }
         for (int i = 0; i < 8; i ++){
-            pawn = new Pawn(ChessColor.BLACK);
-            chessTiles[i][1].drawFigure(g, pawn);
+            chessTiles[pawnsBlack[i].x][pawnsBlack[i].y].drawFigure(g, pawnsBlack[i]);
         }
-
-
 
     }
 

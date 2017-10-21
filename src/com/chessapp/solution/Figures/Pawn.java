@@ -5,6 +5,7 @@ import com.chessapp.solution.ChessPosition;
 import com.chessapp.solution.enums.ChessColor;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,13 +24,15 @@ public class Pawn extends Figure {
 
     @Override
     public List<ChessPosition> move(ChessBoard chessBoard, int x, int y) {
+        List<ChessPosition> moveList = new ArrayList<>();
+
         return null;
     }
 
     @Override
-    public void draw(Graphics g,int x, int y) {
+    public void draw(Graphics2D g,int x, int y) {
         Color black = new Color(0);
-        Color white = new Color(255, 234, 0);
+        Color white = new Color(0, 204, 255);
         if (color == color.BLACK){
             g.setColor(black);
         }
@@ -38,6 +41,17 @@ public class Pawn extends Figure {
         }
 
         g.drawString("P", x + 25, y + 25);
+    }
+
+    @Override
+    public void update() {
+        y = 3;
+        if (y >= 7){
+            y = 7;
+        }
+        if (y <= 0){
+            y = 0;
+        }
 
     }
 }

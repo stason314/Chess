@@ -18,7 +18,8 @@ public abstract class Figure {
 
     public abstract List<ChessPosition> move(ChessBoard chessBoard, int x, int y);
 
-    public abstract void draw(Graphics g, int x, int y);
+    public abstract void draw(Graphics2D g, int x, int y);
+    public abstract void update();
 
 
 }

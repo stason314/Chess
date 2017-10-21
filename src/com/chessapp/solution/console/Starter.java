@@ -13,14 +13,15 @@ public class Starter {
 
     public static void main(String args[]){
 
-        ChessBoard chessBoard = new ChessBoard();
+        GamePanel gamePanel = new GamePanel();
 
-        JFrame jFrame = new JFrame();
-        jFrame.setSize(418, 440);
+        JFrame jFrame = new JFrame("CHESS");
         jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-        jFrame.setLayout(new BorderLayout(1,1));
-        jFrame.add(chessBoard);
+        jFrame.setContentPane(gamePanel);
+        jFrame.pack();
+        jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
+        gamePanel.start();
 
     }
 }
