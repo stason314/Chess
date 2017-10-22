@@ -6,6 +6,7 @@ import com.chessapp.solution.enums.ChessColor;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,16 +15,17 @@ import java.util.concurrent.TimeUnit;
 public class ChessBoard {
 
     public ChessTile[][] chessTiles;
-    public Pawn[] pawnsWhite;
-    public Pawn[] pawnsBlack;
-    java.util.List<ChessPosition> moveList;
+
+    List<Pawn> pawnsWhite;
+    List<Pawn> pawnsBlack;
+    List<ChessPosition> moveList;
 
 
     public ChessBoard() {
         moveList = new ArrayList<>();
         chessTiles = new ChessTile[8][8];
-        pawnsWhite = new Pawn[8];
-        pawnsBlack = new Pawn[8];
+        pawnsWhite = new ArrayList<>();
+        pawnsBlack = new ArrayList<>();
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 chessTiles[i][j] = new ChessTile();
@@ -33,22 +35,56 @@ public class ChessBoard {
         }
 
         for (int i = 0; i < 8; i ++){
-            pawnsWhite[i] = new Pawn(ChessColor.WHITE);
-            pawnsWhite[i].x = i;
-            pawnsWhite[i].y = 6;
-            pawnsBlack[i] = new Pawn(ChessColor.BLACK);
-            pawnsBlack[i].x = i;
-            pawnsBlack[i].y = 1;
+            pawnsWhite.add(new Pawn(ChessColor.WHITE));
+            pawnsWhite.get(i).x = i;
+            pawnsWhite.get(i).y = 6;
+            pawnsBlack.add(new Pawn(ChessColor.BLACK));
+            pawnsBlack.get(i).x = i;
+            pawnsBlack.get(i).y = 1;
         }
     }
 
     public void update() throws InterruptedException {
-        int randNum = (int) (Math.random() * 8);
-        pawnsWhite[randNum].update();
-        System.out.println(pawnsWhite[randNum].y + ": " + randNum);
+        int randNum = (int) (Math.random() * pawnsWhite.size());
+        pawnsWhite.get(randNum).update();
+
+        for (int i = 0; i < pawnsBlack.size(); i++){
+            for (int j = 0; j < pawnsWhite.size(); j++){
+
+                if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
+                    if (randNum  == i){
+                        pawnsBlack.get(i).y = pawnsWhite.get(j).y;
+                    }
+
+                }
+
+                if (pawnsBlack.get(i).y == pawnsWhite.get(j).y && pawnsBlack.get(i).x == pawnsWhite.get(j).x){
+                    pawnsWhite.remove(j);
+                }
+            }
+
+        }
+
+//        System.out.println(pawnsWhite.get(randNum).y + ": " + randNum);
         TimeUnit.SECONDS.sleep(1);
-       // randNum = (int) (Math.random() * 8);
-       // pawnsBlack[randNum].update();
+        randNum = (int) (Math.random() * pawnsBlack.size());
+        pawnsBlack.get(randNum).update();
+
+        for (int i = 0; i < pawnsWhite.size(); i++){
+            for (int j = 0; j < pawnsBlack.size(); j++){
+
+                if (pawnsWhite.get(i).y - 1 == pawnsBlack.get(j).y || pawnsWhite.get(i).y - 2 == pawnsBlack.get(j).y){
+                    if (randNum  == i){
+                        pawnsWhite.get(i).y = pawnsBlack.get(j).y;
+                    }
+                }
+
+                if (pawnsWhite.get(i).y == pawnsBlack.get(j).y && pawnsWhite.get(i).x == pawnsBlack.get(j).x){
+                    pawnsBlack.remove(j);
+                }
+            }
+        }
+
     }
 
 
@@ -68,11 +104,12 @@ public class ChessBoard {
             }
         }
 
-        for (int i = 0; i < 8; i ++){
-            chessTiles[pawnsWhite[i].x][pawnsWhite[i].y].drawFigure(g, pawnsWhite[i]);
+        for (int i = 0; i < pawnsWhite.size(); i ++){
+            chessTiles[pawnsWhite.get(i).x][pawnsWhite.get(i).y].drawFigure(g, pawnsWhite.get(i));
         }
-        for (int i = 0; i < 8; i ++){
-            chessTiles[pawnsBlack[i].x][pawnsBlack[i].y].drawFigure(g, pawnsBlack[i]);
+        if (pawnsBlack.size() != 0)
+        for (int i = 0; i < pawnsBlack.size(); i ++){
+            chessTiles[pawnsBlack.get(i).x][pawnsBlack.get(i).y].drawFigure(g, pawnsBlack.get(i));
         }
     }
 

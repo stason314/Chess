@@ -58,11 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
         chessBoard = new ChessBoard();
 
 
-        try {
-            thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         while (true){//TODO rendering
             timerFPS = System.nanoTime();
             try {
