@@ -26,13 +26,13 @@ public class Pawn extends Figure {
     public List<ChessPosition> move(ChessBoard chessBoard, int x, int y) {
         List<ChessPosition> moveList = new ArrayList<>();
 
-        return null;
+        return moveList;
     }
 
     @Override
     public void draw(Graphics2D g,int x, int y) {
         Color black = new Color(0);
-        Color white = new Color(0, 204, 255);
+        Color white = new Color(255, 2, 0);
         if (color == color.BLACK){
             g.setColor(black);
         }
@@ -45,7 +45,15 @@ public class Pawn extends Figure {
 
     @Override
     public void update() {
-        y = 3;
+        int randYB = 1 +(int) (Math.random() * 3);
+        int randYW = 1 +(int) (Math.random() * 3);
+
+        if (color == color.BLACK){
+            y += randYB;
+        }
+        if (color == color.WHITE){
+            y -= randYW;
+        }
         if (y >= 7){
             y = 7;
         }

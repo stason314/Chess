@@ -5,6 +5,7 @@ import com.chessapp.solution.enums.ChessColor;
 
 import java.awt.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Admin on 19.10.2017.
@@ -38,12 +39,14 @@ public class ChessBoard {
             pawnsBlack[i].x = i;
             pawnsBlack[i].y = 1;
         }
-
     }
 
-    public void update(){
+    public void update() throws InterruptedException {
         int randNum = (int) (Math.random() * 8);
         pawnsWhite[randNum].update();
+        TimeUnit.SECONDS.sleep(2);
+        randNum = (int) (Math.random() * 8);
+        pawnsBlack[randNum].update();
     }
 
 
@@ -63,7 +66,6 @@ public class ChessBoard {
 
         for (int i = 0; i < 8; i ++){
             chessTiles[pawnsWhite[i].x][pawnsWhite[i].y].drawFigure(g, pawnsWhite[i]);
-            System.out.println(pawnsWhite[i].x);
         }
         for (int i = 0; i < 8; i ++){
             chessTiles[pawnsBlack[i].x][pawnsBlack[i].y].drawFigure(g, pawnsBlack[i]);

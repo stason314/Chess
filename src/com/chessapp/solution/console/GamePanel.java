@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
         while (true){//TODO rendering
             timerFPS = System.nanoTime();
 
-            gameUpdate();
+
             gameRender();
             gameDraw();
 
@@ -71,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
                 sleepTime = (int) (millisToFPS - timerFPS);
             }else sleepTime = 1;
             try {
+                gameUpdate();
                 thread.sleep(sleepTime); //TODO FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -82,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void gameUpdate(){
+    private void gameUpdate() throws InterruptedException {
         chessBoard.update();
     }
 
