@@ -1,5 +1,6 @@
 package com.chessapp.solution;
 
+
 import com.chessapp.solution.Figures.Pawn;
 import com.chessapp.solution.enums.ChessColor;
 
@@ -44,10 +45,13 @@ public class ChessBoard {
     public void update() throws InterruptedException {
         int randNum = (int) (Math.random() * 8);
         pawnsWhite[randNum].update();
-        TimeUnit.SECONDS.sleep(2);
-        randNum = (int) (Math.random() * 8);
-        pawnsBlack[randNum].update();
+        System.out.println(pawnsWhite[randNum].y + ": " + randNum);
+        TimeUnit.SECONDS.sleep(1);
+       // randNum = (int) (Math.random() * 8);
+       // pawnsBlack[randNum].update();
     }
+
+
 
 
     public void draw(Graphics2D g) {
@@ -70,7 +74,6 @@ public class ChessBoard {
         for (int i = 0; i < 8; i ++){
             chessTiles[pawnsBlack[i].x][pawnsBlack[i].y].drawFigure(g, pawnsBlack[i]);
         }
-
     }
 
 }

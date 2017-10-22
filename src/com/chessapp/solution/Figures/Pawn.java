@@ -26,6 +26,7 @@ public class Pawn extends Figure {
     public List<ChessPosition> move(ChessBoard chessBoard, int x, int y) {
         List<ChessPosition> moveList = new ArrayList<>();
 
+
         return moveList;
     }
 
