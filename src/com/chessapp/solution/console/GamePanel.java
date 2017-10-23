@@ -16,8 +16,8 @@ import java.awt.image.BufferedImage;
  */
 public class GamePanel extends JPanel implements Runnable {
 
-    public static int WIDTH=418;//600
-    public static int HEIGHT=440;//600
+    public static int WIDTH=400;//600
+    public static int HEIGHT=400;//600
 
     private Thread thread;
 
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        FPS = 32;
+        FPS = 1;
         millisToFPS = 1000/FPS;
         sleepTime = 0;
 
@@ -59,32 +59,19 @@ public class GamePanel extends JPanel implements Runnable {
         //init
         chessBoard = new ChessBoard();
 
-        gameRender();
-        gameDraw();
-        gameUpdate();
+
+
 
         while (true){//TODO rendering
             timerFPS = System.nanoTime();
 
-            addKeyListener(new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        chessBoard.pawnsWhite.get(5).y -= 2;
-                    }
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-
-                }
-            });
-
+            try {
+                gameUpdate();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            gameRender();
+            gameDraw();
             timerFPS = (System.nanoTime()-timerFPS )/1000000;
             if (millisToFPS > timerFPS){
                 sleepTime = (int) (millisToFPS - timerFPS);
@@ -102,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void gameUpdate() {
+    private void gameUpdate() throws InterruptedException {
         chessBoard.update();
     }
 

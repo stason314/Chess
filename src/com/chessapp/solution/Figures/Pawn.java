@@ -67,10 +67,10 @@ public class Pawn extends Figure {
         int randYW = 1 +(int) (Math.random() * 3);
 
         if (color == color.BLACK){
-            y += randYB;
+            y += 1;
         }
         if (color == color.WHITE){
-            y -= randYW;
+            y -= 1;
         }
         if (y >= 7){
             y = 7;

@@ -43,7 +43,7 @@ public class ChessBoard {
             pawnsBlack.add(new Pawn(ChessColor.BLACK));
             pawnsBlack.get(i).x = i;
             pawnsBlack.get(i).y = 1;
-            moveList.addAll(pawnsWhite.get(i).move(this));
+
         }
         for (ChessPosition chessPosition : moveList){
             System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
@@ -51,50 +51,44 @@ public class ChessBoard {
 
     }
 
-    public void update() {
+    public void update() throws InterruptedException {
         int randNum = (int) (Math.random() * pawnsWhite.size());
-        pawnsWhite.get(1).update();
+        pawnsWhite.get(randNum).update();
 
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
 
+                moveList.addAll(pawnsWhite.get(j).move(this));
 
-
-                if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
-                    if (randNum  == i){
-                        pawnsBlack.get(i).y = pawnsWhite.get(j).y;
-                    }
-
+               /* if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
+                    pawnsBlack.get(i).y = pawnsWhite.get(j).y;
                 }
-
                 if (pawnsBlack.get(i).y == pawnsWhite.get(j).y && pawnsBlack.get(i).x == pawnsWhite.get(j).x){
                     pawnsWhite.remove(j);
-                }
+                }*/
             }
 
         }
 
 //        System.out.println(pawnsWhite.get(randNum).y + ": " + randNum);
-        //TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(2);
         randNum = (int) (Math.random() * pawnsBlack.size());
         pawnsBlack.get(randNum).update();
 
         for (int i = 0; i < pawnsWhite.size(); i++){
             for (int j = 0; j < pawnsBlack.size(); j++){
 
-                if (pawnsWhite.get(i).y - 1 == pawnsBlack.get(j).y || pawnsWhite.get(i).y - 2 == pawnsBlack.get(j).y){
-                    if (randNum  == i){
-                        pawnsWhite.get(i).y = pawnsBlack.get(j).y;
-                    }
+                /*if (pawnsWhite.get(i).y - 1 == pawnsBlack.get(j).y || pawnsWhite.get(i).y - 2 == pawnsBlack.get(j).y){
+                    pawnsWhite.get(i).y = pawnsBlack.get(j).y;
                 }
 
                 if (pawnsWhite.get(i).y == pawnsBlack.get(j).y && pawnsWhite.get(i).x == pawnsBlack.get(j).x){
                     pawnsBlack.remove(j);
-                }
+                }*/
             }
         }
         for (ChessPosition chessPosition : moveList){
-            //System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
+            System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
         }
 
 
