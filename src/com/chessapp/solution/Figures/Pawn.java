@@ -38,9 +38,16 @@ public class Pawn extends Figure {
 
 
         for (int i = 0; i < moveList.size(); i++){
-            if (moveList.get(i).y == y){
-                moveList.remove(i);
-            }
+                if (moveList.get(i).y == y){
+                   moveList.remove(i);
+                }
+                if (moveList.get(i).y > 7){
+                    moveList.remove(i);
+                    moveList.remove(i);
+                }
+                if (moveList.get(i).y - 1 < 0){
+                    moveList.remove(i);
+                }
         }
 
 
@@ -70,7 +77,7 @@ public class Pawn extends Figure {
             y += 1;
         }
         if (color == color.WHITE){
-            y -= 1;
+            y -= 5;
         }
         if (y >= 7){
             y = 7;
