@@ -6,6 +6,9 @@ import com.chessapp.solution.enums.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -35,7 +38,6 @@ public class GamePanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setFocusable(true);
         requestFocus();
-
     }
 
     public void start(){
@@ -57,19 +59,31 @@ public class GamePanel extends JPanel implements Runnable {
         //init
         chessBoard = new ChessBoard();
 
-
+        gameRender();
+        gameDraw();
+        gameUpdate();
 
         while (true){//TODO rendering
             timerFPS = System.nanoTime();
-            try {
-                gameUpdate();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
+            addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
 
-            gameRender();
-            gameDraw();
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        chessBoard.pawnsWhite.get(5).y -= 2;
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+
+                }
+            });
 
             timerFPS = (System.nanoTime()-timerFPS )/1000000;
             if (millisToFPS > timerFPS){
@@ -88,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void gameUpdate() throws InterruptedException {
+    private void gameUpdate() {
         chessBoard.update();
     }
 

@@ -23,8 +23,25 @@ public class Pawn extends Figure {
     }
 
     @Override
-    public List<ChessPosition> move(ChessBoard chessBoard, int x, int y) {
+    public List<ChessPosition> move(ChessBoard chessBoard) {
         List<ChessPosition> moveList = new ArrayList<>();
+        if (color == ChessColor.WHITE){
+            for (Pawn pawn: chessBoard.pawnsBlack){
+                if (y - 1 != pawn.y && x == pawn.x){
+                    moveList.add(new ChessPosition(x, y - 1));
+                }
+                if (y - 2 != pawn.y && x == pawn.x){
+                    moveList.add(new ChessPosition(x, y - 2));
+                }
+            }
+        }
+
+
+        for (int i = 0; i < moveList.size(); i++){
+            if (moveList.get(i).y == y){
+                moveList.remove(i);
+            }
+        }
 
 
         return moveList;

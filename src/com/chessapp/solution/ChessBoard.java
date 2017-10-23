@@ -16,9 +16,9 @@ public class ChessBoard {
 
     public ChessTile[][] chessTiles;
 
-    List<Pawn> pawnsWhite;
-    List<Pawn> pawnsBlack;
-    List<ChessPosition> moveList;
+    public List<Pawn> pawnsWhite;
+    public List<Pawn> pawnsBlack;
+    public List<ChessPosition> moveList;
 
 
     public ChessBoard() {
@@ -29,8 +29,10 @@ public class ChessBoard {
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 chessTiles[i][j] = new ChessTile();
-                chessTiles[i][j].x = 0 + i * 50;
-                chessTiles[i][j].y = 0 + j * 50;
+                chessTiles[i][j].xC = i * 50;
+                chessTiles[i][j].yC = j * 50;
+                chessTiles[i][j].x = i;
+                chessTiles[i][j].y = j;
             }
         }
 
@@ -41,15 +43,22 @@ public class ChessBoard {
             pawnsBlack.add(new Pawn(ChessColor.BLACK));
             pawnsBlack.get(i).x = i;
             pawnsBlack.get(i).y = 1;
+            moveList.addAll(pawnsWhite.get(i).move(this));
         }
+        for (ChessPosition chessPosition : moveList){
+            System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
+        }
+
     }
 
-    public void update() throws InterruptedException {
+    public void update() {
         int randNum = (int) (Math.random() * pawnsWhite.size());
-        pawnsWhite.get(randNum).update();
+        pawnsWhite.get(1).update();
 
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
+
+
 
                 if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
                     if (randNum  == i){
@@ -66,7 +75,7 @@ public class ChessBoard {
         }
 
 //        System.out.println(pawnsWhite.get(randNum).y + ": " + randNum);
-        TimeUnit.SECONDS.sleep(1);
+        //TimeUnit.SECONDS.sleep(2);
         randNum = (int) (Math.random() * pawnsBlack.size());
         pawnsBlack.get(randNum).update();
 
@@ -84,6 +93,10 @@ public class ChessBoard {
                 }
             }
         }
+        for (ChessPosition chessPosition : moveList){
+            //System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
+        }
+
 
     }
 

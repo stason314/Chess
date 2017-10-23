@@ -16,7 +16,7 @@ public abstract class Figure {
     public int y;
     public ChessColor color;
 
-    public abstract List<ChessPosition> move(ChessBoard chessBoard, int x, int y);
+    public abstract List<ChessPosition> move(ChessBoard chessBoard);
 
     public abstract void draw(Graphics2D g, int x, int y);
     public abstract void update();
