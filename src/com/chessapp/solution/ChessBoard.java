@@ -48,7 +48,7 @@ public class ChessBoard {
 
     }
 
-    public void update() throws InterruptedException {
+    public void updateWhite(){
         int randNum = (int) (Math.random() * pawnsWhite.size());
         pawnsWhite.get(randNum).update();
 
@@ -57,22 +57,6 @@ public class ChessBoard {
             int randI = (int) (Math.random() * moveList.size());
             pawnsWhite.get(randNum).y = moveList.get(randI).y;
         }
-
-        for (int i = 0; i < pawnsBlack.size(); i++){
-            for (int j = 0; j < pawnsWhite.size(); j++){
-               /* if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
-                    pawnsBlack.get(i).y = pawnsWhite.get(j).y;
-                }
-                if (pawnsBlack.get(i).y == pawnsWhite.get(j).y && pawnsBlack.get(i).x == pawnsWhite.get(j).x){
-                    pawnsWhite.remove(j);
-                }*/
-            }
-
-        }
-//        System.out.println(pawnsWhite.get(randNum).y + ": " + randNum);
-        TimeUnit.SECONDS.sleep(2);
-        randNum = (int) (Math.random() * pawnsBlack.size());
-        pawnsBlack.get(randNum).update();
 
         for (int i = 0; i < pawnsWhite.size(); i++){
             //moveList.addAll(pawnsWhite.get(i).move(this));
@@ -92,6 +76,26 @@ public class ChessBoard {
         System.out.println("---------------------------------");
         moveList.clear();
     }
+
+    public void updateBlack(){
+
+        int randNum = (int) (Math.random() * pawnsBlack.size());
+        pawnsBlack.get(randNum).update();
+
+        for (int i = 0; i < pawnsBlack.size(); i++){
+            for (int j = 0; j < pawnsWhite.size(); j++){
+               /* if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
+                    pawnsBlack.get(i).y = pawnsWhite.get(j).y;
+                }
+                if (pawnsBlack.get(i).y == pawnsWhite.get(j).y && pawnsBlack.get(i).x == pawnsWhite.get(j).x){
+                    pawnsWhite.remove(j);
+                }*/
+            }
+
+        }
+    }
+
+
 
     public void draw(Graphics2D g) {
         Color tileBlack = new Color(166, 83, 0);

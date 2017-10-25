@@ -3,6 +3,8 @@ package com.chessapp.solution.console;
 import com.chessapp.solution.ChessBoard;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -42,9 +44,8 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        FPS = 1;
-        millisToFPS = 1000/FPS;
-        sleepTime = 0;
+        sleepTime = 500;
+        final boolean[] flag = {false};
 
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g =(Graphics2D) image.getGraphics();
@@ -54,38 +55,43 @@ public class GamePanel extends JPanel implements Runnable {
         chessBoard = new ChessBoard();
 
 
+        gameRender();
+        gameDraw();
+       // chessBoard.updateWhite();
 
 
-        while (true){//TODO rendering
-            timerFPS = System.nanoTime();
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
-            try {
-                gameUpdate();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-            gameRender();
-            gameDraw();
-            timerFPS = (System.nanoTime()-timerFPS )/1000000;
-            if (millisToFPS > timerFPS){
-                sleepTime = (int) (millisToFPS - timerFPS);
-            }else sleepTime = 1;
-            try {
 
-                thread.sleep(sleepTime); //TODO FPS
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_UP){
+                    chessBoard.updateBlack();
+                    gameRender();
+                    gameDraw();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN){
+                    chessBoard.updateWhite();
+                    gameRender();
+                    gameDraw();
+                }
             }
-            //System.out.println(sleepTime);
-            timerFPS = 0;
-            sleepTime = 1;
 
-        }
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+
     }
 
-    private void gameUpdate() throws InterruptedException {
+    /*private void gameUpdate() throws InterruptedException {
         chessBoard.update();
-    }
+    }*/
 
 
     private void gameRender(){

@@ -70,7 +70,7 @@ public class Pawn extends Figure {
 
     @Override
     public void update() {
-        int randYB = 1 +(int) (Math.random() * 3);
+        int randYB = 1 +(int) (Math.random() * 2);
         int randYW = 1 +(int) (Math.random() * 3);
 
         if (color == color.BLACK){
@@ -87,7 +87,8 @@ public class Pawn extends Figure {
         }
     }
 
-    private void loadImage(){
+    @Override
+    protected void loadImage() {
         try {
             if (color == ChessColor.WHITE){
                 image = ImageIO.read(new File("img/whitePawn.png"));
