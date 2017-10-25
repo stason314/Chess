@@ -45,9 +45,6 @@ public class ChessBoard {
             pawnsBlack.get(i).y = 1;
 
         }
-        for (ChessPosition chessPosition : moveList){
-            System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
-        }
 
     }
 
@@ -55,6 +52,11 @@ public class ChessBoard {
         int randNum = (int) (Math.random() * pawnsWhite.size());
         pawnsWhite.get(randNum).update();
 
+        moveList = pawnsWhite.get(randNum).move(this);
+        if (moveList.size() != 0){
+            int randI = (int) (Math.random() * moveList.size());
+            pawnsWhite.get(randNum).y = moveList.get(randI).y;
+        }
 
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
@@ -67,16 +69,14 @@ public class ChessBoard {
             }
 
         }
-
 //        System.out.println(pawnsWhite.get(randNum).y + ": " + randNum);
         TimeUnit.SECONDS.sleep(2);
         randNum = (int) (Math.random() * pawnsBlack.size());
         pawnsBlack.get(randNum).update();
 
         for (int i = 0; i < pawnsWhite.size(); i++){
-            moveList.addAll(pawnsWhite.get(i).move(this));
+            //moveList.addAll(pawnsWhite.get(i).move(this));
             for (int j = 0; j < pawnsBlack.size(); j++){
-
                 /*if (pawnsWhite.get(i).y - 1 == pawnsBlack.get(j).y || pawnsWhite.get(i).y - 2 == pawnsBlack.get(j).y){
                     pawnsWhite.get(i).y = pawnsBlack.get(j).y;
                 }
@@ -91,12 +91,7 @@ public class ChessBoard {
         }
         System.out.println("---------------------------------");
         moveList.clear();
-
-
     }
-
-
-
 
     public void draw(Graphics2D g) {
         Color tileBlack = new Color(166, 83, 0);

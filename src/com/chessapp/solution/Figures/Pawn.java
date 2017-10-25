@@ -37,17 +37,17 @@ public class Pawn extends Figure {
                     moveList.add(new ChessPosition(x, y - 2));
                 }
             }
-        }
-
-
-        for (int i = 0; i < moveList.size(); i++){
+            for (int i = 0; i < moveList.size(); i++){
                 if (moveList.get(i).y == y){
-                   moveList.remove(i);
+                    moveList.remove(i);
                 }
                 if (moveList.get(i).y < 0){
                     moveList.remove(i);
                 }
+            }
         }
+
+
 
 
         return moveList;
@@ -77,7 +77,7 @@ public class Pawn extends Figure {
             y += randYB;
         }
         if (color == color.WHITE){
-            y -= randYW;
+           // y -= randYW;
         }
         if (y >= 7){
             y = 7;
