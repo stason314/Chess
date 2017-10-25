@@ -58,7 +58,7 @@ public class ChessBoard {
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
 
-                moveList.addAll(pawnsWhite.get(j).move(this));
+
 
                /* if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
                     pawnsBlack.get(i).y = pawnsWhite.get(j).y;
@@ -76,6 +76,7 @@ public class ChessBoard {
         pawnsBlack.get(randNum).update();
 
         for (int i = 0; i < pawnsWhite.size(); i++){
+            moveList.addAll(pawnsWhite.get(i).move(this));
             for (int j = 0; j < pawnsBlack.size(); j++){
 
                 /*if (pawnsWhite.get(i).y - 1 == pawnsBlack.get(j).y || pawnsWhite.get(i).y - 2 == pawnsBlack.get(j).y){
@@ -88,8 +89,9 @@ public class ChessBoard {
             }
         }
         for (ChessPosition chessPosition : moveList){
-            System.out.println(" " + chessPosition.x + "   :" + chessPosition.y);
+            System.out.println(chessPosition.x + " : " + chessPosition.y);
         }
+        System.out.println("---------------------------------");
         moveList.clear();
 
 

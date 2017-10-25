@@ -27,10 +27,10 @@ public class Pawn extends Figure {
         List<ChessPosition> moveList = new ArrayList<>();
         if (color == ChessColor.WHITE){
             for (Pawn pawn: chessBoard.pawnsBlack){
-                if (y - 1 != pawn.y && x == pawn.x){
+                if (y - 1 != pawn.y && x == pawn.x && y - 1 >= 0){
                     moveList.add(new ChessPosition(x, y - 1));
                 }
-                if (y - 2 != pawn.y && x == pawn.x){
+                if (y - 2 != pawn.y && x == pawn.x && y - 2 >= 0){
                     moveList.add(new ChessPosition(x, y - 2));
                 }
             }
@@ -41,11 +41,7 @@ public class Pawn extends Figure {
                 if (moveList.get(i).y == y){
                    moveList.remove(i);
                 }
-                if (moveList.get(i).y > 7){
-                    moveList.remove(i);
-                    moveList.remove(i);
-                }
-                if (moveList.get(i).y - 1 < 0){
+                if (moveList.get(i).y < 0){
                     moveList.remove(i);
                 }
         }
@@ -74,10 +70,10 @@ public class Pawn extends Figure {
         int randYW = 1 +(int) (Math.random() * 3);
 
         if (color == color.BLACK){
-            y += 1;
+            y += randYB;
         }
         if (color == color.WHITE){
-            y -= 5;
+            y -= randYW;
         }
         if (y >= 7){
             y = 7;
