@@ -28,28 +28,43 @@ public class Pawn extends Figure {
     @Override
     public List<ChessPosition> move(ChessBoard chessBoard) {
         List<ChessPosition> moveList = new ArrayList<>();
-        if (color == ChessColor.WHITE){
-            for (Pawn pawn: chessBoard.pawnsBlack){
-                if (y - 1 != pawn.y && x == pawn.x && y - 1 >= 0){
+        if (color == ChessColor.WHITE) {
+            for (Pawn pawn : chessBoard.pawnsBlack) {
+                if (y - 1 != pawn.y && x == pawn.x && y - 1 >= 0) {
                     moveList.add(new ChessPosition(x, y - 1));
                 }
-                if (y - 2 != pawn.y && x == pawn.x && y - 2 >= 0){
+                if (y - 2 != pawn.y && x == pawn.x && y - 2 >= 0) {
                     moveList.add(new ChessPosition(x, y - 2));
                 }
             }
-            for (int i = 0; i < moveList.size(); i++){
-                if (moveList.get(i).y == y){
+            for (int i = 0; i < moveList.size(); i++) {
+                if (moveList.get(i).y == y) {
                     moveList.remove(i);
                 }
-                if (moveList.get(i).y < 0){
+                if (moveList.get(i).y < 0) {
                     moveList.remove(i);
                 }
             }
         }
 
-
-
-
+        if (color == ChessColor.BLACK) {
+            for (Pawn pawn : chessBoard.pawnsWhite) {
+                if (y + 1 != pawn.y && x == pawn.x && y + 1 <= 7) {
+                    moveList.add(new ChessPosition(x, y + 1));
+                }
+                if (y + 2 != pawn.y && x == pawn.x && y + 2 <= 7) {
+                    moveList.add(new ChessPosition(x, y + 2));
+                }
+            }
+            for (int i = 0; i < moveList.size(); i++) {
+                if (moveList.get(i).y == y) {
+                    moveList.remove(i);
+                }
+                if (moveList.get(i).y > 7) {
+                    moveList.remove(i);
+                }
+            }
+        }
         return moveList;
     }
 
@@ -68,13 +83,13 @@ public class Pawn extends Figure {
         //g.drawString("P", x + 25, y + 25);
     }
 
-    @Override
+    /*@Override
     public void update() {
         int randYB = 1 +(int) (Math.random() * 2);
         int randYW = 1 +(int) (Math.random() * 3);
 
         if (color == color.BLACK){
-            y += randYB;
+          //  y += randYB;
         }
         if (color == color.WHITE){
            // y -= randYW;
@@ -85,7 +100,7 @@ public class Pawn extends Figure {
         if (y <= 0){
             y = 0;
         }
-    }
+    }*/
 
     @Override
     protected void loadImage() {

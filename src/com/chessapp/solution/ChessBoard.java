@@ -50,7 +50,7 @@ public class ChessBoard {
 
     public void updateWhite(){
         int randNum = (int) (Math.random() * pawnsWhite.size());
-        pawnsWhite.get(randNum).update();
+
 
         moveList = pawnsWhite.get(randNum).move(this);
         if (moveList.size() != 0){
@@ -80,7 +80,12 @@ public class ChessBoard {
     public void updateBlack(){
 
         int randNum = (int) (Math.random() * pawnsBlack.size());
-        pawnsBlack.get(randNum).update();
+
+        moveList = pawnsBlack.get(randNum).move(this);
+        if (moveList.size() != 0){
+            int randI = (int) (Math.random() * moveList.size());
+            pawnsBlack.get(randNum).y = moveList.get(randI).y;
+        }
 
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
@@ -91,8 +96,12 @@ public class ChessBoard {
                     pawnsWhite.remove(j);
                 }*/
             }
-
         }
+        for (ChessPosition chessPosition : moveList){
+            System.out.println(chessPosition.x + " : " + chessPosition.y);
+        }
+        System.out.println("---------------------------------");
+       // moveList.clear();
     }
 
 
