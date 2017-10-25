@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
 
         sleepTime = 500;
-        final boolean[] flag = {false};
+        final boolean[] flag = {true};
 
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g =(Graphics2D) image.getGraphics();
@@ -68,21 +68,22 @@ public class GamePanel extends JPanel implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_UP){
-                    chessBoard.updateBlack();
+                if (e.getKeyCode() == KeyEvent.VK_SPACE){
+                    if (flag[0]){
+                        chessBoard.updateWhite();
+                        flag[0] = false;
+                    }else {
+                        chessBoard.updateBlack();
+                        flag[0] = true;
+                    }
                     gameRender();
                     gameDraw();
                 }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN){
-                    chessBoard.updateWhite();
-                    gameRender();
-                    gameDraw();
-                }
+
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
             }
         });
 
