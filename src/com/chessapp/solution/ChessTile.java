@@ -12,7 +12,7 @@ import java.awt.*;
 public class ChessTile {
 
     ChessColor chessColor;
-    public int xC, yC;
+    public int xReal, yReal;
     public int x, y;
 
     public ChessTile() {
@@ -22,14 +22,14 @@ public class ChessTile {
 
     public void draw(Graphics2D g, Color color){
         g.setColor(color);
-        g.drawRect(xC, yC, 50, 50);
-        g.fillRect(xC, yC, 50, 50);
+        g.drawRect(xReal, yReal, 50, 50);
+        g.fillRect(xReal, yReal, 50, 50);
 
 
     }
 
     public void drawFigure(Graphics2D g, Figure figure){
-        figure.draw(g, xC, yC);
+        figure.draw(g, xReal, yReal);
     }
 
     public boolean haveFigure(Figure figure){

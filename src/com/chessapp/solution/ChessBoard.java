@@ -29,8 +29,8 @@ public class ChessBoard {
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 chessTiles[i][j] = new ChessTile();
-                chessTiles[i][j].xC = i * 50;
-                chessTiles[i][j].yC = j * 50;
+                chessTiles[i][j].xReal = i * 50;
+                chessTiles[i][j].yReal = j * 50;
                 chessTiles[i][j].x = i;
                 chessTiles[i][j].y = j;
             }
@@ -54,6 +54,7 @@ public class ChessBoard {
     public void update() throws InterruptedException {
         int randNum = (int) (Math.random() * pawnsWhite.size());
         pawnsWhite.get(randNum).update();
+
 
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
