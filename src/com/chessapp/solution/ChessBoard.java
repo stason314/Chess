@@ -58,9 +58,6 @@ public class ChessBoard {
 
         for (int i = 0; i < pawnsBlack.size(); i++){
             for (int j = 0; j < pawnsWhite.size(); j++){
-
-
-
                /* if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
                     pawnsBlack.get(i).y = pawnsWhite.get(j).y;
                 }

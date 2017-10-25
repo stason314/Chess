@@ -4,7 +4,10 @@ import com.chessapp.solution.ChessBoard;
 import com.chessapp.solution.ChessPosition;
 import com.chessapp.solution.enums.ChessColor;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +16,13 @@ import java.util.List;
  */
 public class Pawn extends Figure {
 
-    ChessPosition chessPosition;
-
     public Pawn(ChessColor chessColor) {
         color = chessColor;
         x = 0;
         y = 0;
-        chessPosition = new ChessPosition(x, y);
+
+        loadImage();
+
     }
 
     @Override
@@ -61,7 +64,8 @@ public class Pawn extends Figure {
             g.setColor(white);
         }
 
-        g.drawString("P", x + 25, y + 25);
+        g.drawImage(image, x , y , null);
+        //g.drawString("P", x + 25, y + 25);
     }
 
     @Override
@@ -81,6 +85,19 @@ public class Pawn extends Figure {
         if (y <= 0){
             y = 0;
         }
+    }
 
+    private void loadImage(){
+        try {
+            if (color == ChessColor.WHITE){
+                image = ImageIO.read(new File("img/whitePawn.png"));
+            }
+            if (color == ChessColor.BLACK){
+                image = ImageIO.read(new File("img/blackPawn.png"));
+            }
+
+        }catch (IOException e){
+
+        }
     }
 }

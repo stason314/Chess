@@ -22,9 +22,8 @@ public class ChessTile {
 
     public void draw(Graphics2D g, Color color){
         g.setColor(color);
-        g.drawRect(xReal, yReal, 50, 50);
+       // g.drawRect(xReal, yReal, 50, 50);
         g.fillRect(xReal, yReal, 50, 50);
-
 
     }
 

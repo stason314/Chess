@@ -1,14 +1,8 @@
 package com.chessapp.solution.console;
 
 import com.chessapp.solution.ChessBoard;
-import com.chessapp.solution.Figures.Pawn;
-import com.chessapp.solution.enums.ChessColor;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 /**
