@@ -1,7 +1,7 @@
 package com.chessapp.solution;
 
 
-import com.chessapp.solution.Figures.Pawn;
+import com.chessapp.solution.Figures.*;
 import com.chessapp.solution.enums.ChessColor;
 
 import java.awt.*;
@@ -16,16 +16,16 @@ public class ChessBoard {
 
     public ChessTile[][] chessTiles;
 
-    public List<Pawn> pawnsWhite;
-    public List<Pawn> pawnsBlack;
+    public List<Figure> figuresWhite;
+    public List<Figure> figuresBlack;
     public List<ChessPosition> moveList;
 
 
     public ChessBoard() {
         moveList = new ArrayList<>();
         chessTiles = new ChessTile[8][8];
-        pawnsWhite = new ArrayList<>();
-        pawnsBlack = new ArrayList<>();
+        figuresWhite = new ArrayList<>();
+        figuresBlack = new ArrayList<>();
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 chessTiles[i][j] = new ChessTile();
@@ -35,38 +35,97 @@ public class ChessBoard {
                 chessTiles[i][j].y = j;
             }
         }
-
+        //Pawns
         for (int i = 0; i < 8; i ++){
-            pawnsWhite.add(new Pawn(ChessColor.WHITE));
-            pawnsWhite.get(i).x = i;
-            pawnsWhite.get(i).y = 6;
-            pawnsBlack.add(new Pawn(ChessColor.BLACK));
-            pawnsBlack.get(i).x = i;
-            pawnsBlack.get(i).y = 1;
-
+            figuresWhite.add(new Pawn(ChessColor.WHITE));
+            figuresWhite.get(i).x = i;
+            figuresWhite.get(i).y = 6;
+            figuresBlack.add(new Pawn(ChessColor.BLACK));
+            figuresBlack.get(i).x = i;
+            figuresBlack.get(i).y = 1;
         }
+        //Rooks
+        figuresBlack.add(new Rook(ChessColor.BLACK));
+        figuresBlack.get(8).x = 0;
+        figuresBlack.get(8).y = 0;
+        figuresBlack.add(new Rook(ChessColor.BLACK));
+        figuresBlack.get(9).x = 7;
+        figuresBlack.get(9).y = 0;
+
+        figuresWhite.add(new Rook(ChessColor.WHITE));
+        figuresWhite.get(8).x = 0;
+        figuresWhite.get(8).y = 7;
+        figuresWhite.add(new Rook(ChessColor.WHITE));
+        figuresWhite.get(9).x = 7;
+        figuresWhite.get(9).y = 7;
+        //Knights
+        figuresBlack.add(new Knight(ChessColor.BLACK));
+        figuresBlack.get(10).x = 1;
+        figuresBlack.get(10).y = 0;
+        figuresBlack.add(new Knight(ChessColor.BLACK));
+        figuresBlack.get(11).x = 6;
+        figuresBlack.get(11).y = 0;
+
+        figuresWhite.add(new Knight(ChessColor.WHITE));
+        figuresWhite.get(10).x = 1;
+        figuresWhite.get(10).y = 7;
+        figuresWhite.add(new Knight(ChessColor.WHITE));
+        figuresWhite.get(11).x = 6;
+        figuresWhite.get(11).y = 7;
+        //Bishops
+        figuresBlack.add(new Bishop(ChessColor.BLACK));
+        figuresBlack.get(12).x = 2;
+        figuresBlack.get(12).y = 0;
+        figuresBlack.add(new Bishop(ChessColor.BLACK));
+        figuresBlack.get(13).x = 5;
+        figuresBlack.get(13).y = 0;
+
+        figuresWhite.add(new Bishop(ChessColor.WHITE));
+        figuresWhite.get(12).x = 2;
+        figuresWhite.get(12).y = 7;
+        figuresWhite.add(new Bishop(ChessColor.WHITE));
+        figuresWhite.get(13).x = 5;
+        figuresWhite.get(13).y = 7;
+        //Queens
+        figuresBlack.add(new Queen(ChessColor.BLACK));
+        figuresBlack.get(14).x = 3;
+        figuresBlack.get(14).y = 0;
+
+        figuresWhite.add(new Queen(ChessColor.WHITE));
+        figuresWhite.get(14).x = 3;
+        figuresWhite.get(14).y = 7;
+        //Kings
+        figuresBlack.add(new King(ChessColor.BLACK));
+        figuresBlack.get(15).x = 4;
+        figuresBlack.get(15).y = 0;
+
+        figuresWhite.add(new King(ChessColor.WHITE));
+        figuresWhite.get(15).x = 4;
+        figuresWhite.get(15).y = 7;
+
+
 
     }
 
     public void updateWhite(){
-        int randNum = (int) (Math.random() * pawnsWhite.size());
+        int randNum = (int) (Math.random() * figuresWhite.size());
 
 
-        moveList = pawnsWhite.get(randNum).move(this);
+        moveList = figuresWhite.get(randNum).move(this);
         if (moveList.size() != 0){
             int randI = (int) (Math.random() * moveList.size());
-            pawnsWhite.get(randNum).y = moveList.get(randI).y;
+            figuresWhite.get(randNum).y = moveList.get(randI).y;
         }
 
-        for (int i = 0; i < pawnsWhite.size(); i++){
-            //moveList.addAll(pawnsWhite.get(i).move(this));
-            for (int j = 0; j < pawnsBlack.size(); j++){
-                /*if (pawnsWhite.get(i).y - 1 == pawnsBlack.get(j).y || pawnsWhite.get(i).y - 2 == pawnsBlack.get(j).y){
-                    pawnsWhite.get(i).y = pawnsBlack.get(j).y;
+        for (int i = 0; i < figuresWhite.size(); i++){
+            //moveList.addAll(figuresWhite.get(i).move(this));
+            for (int j = 0; j < figuresBlack.size(); j++){
+                /*if (figuresWhite.get(i).y - 1 == figuresBlack.get(j).y || figuresWhite.get(i).y - 2 == figuresBlack.get(j).y){
+                    figuresWhite.get(i).y = figuresBlack.get(j).y;
                 }
 
-                if (pawnsWhite.get(i).y == pawnsBlack.get(j).y && pawnsWhite.get(i).x == pawnsBlack.get(j).x){
-                    pawnsBlack.remove(j);
+                if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
+                    figuresBlack.remove(j);
                 }*/
             }
         }
@@ -79,21 +138,21 @@ public class ChessBoard {
 
     public void updateBlack(){
 
-        int randNum = (int) (Math.random() * pawnsBlack.size());
+        int randNum = (int) (Math.random() * figuresBlack.size());
 
-        moveList = pawnsBlack.get(randNum).move(this);
+        moveList = figuresBlack.get(randNum).move(this);
         if (moveList.size() != 0){
             int randI = (int) (Math.random() * moveList.size());
-            pawnsBlack.get(randNum).y = moveList.get(randI).y;
+            figuresBlack.get(randNum).y = moveList.get(randI).y;
         }
 
-        for (int i = 0; i < pawnsBlack.size(); i++){
-            for (int j = 0; j < pawnsWhite.size(); j++){
-               /* if (pawnsBlack.get(i).y + 1 == pawnsWhite.get(j).y || pawnsBlack.get(i).y + 2 == pawnsWhite.get(j).y){
-                    pawnsBlack.get(i).y = pawnsWhite.get(j).y;
+        for (int i = 0; i < figuresBlack.size(); i++){
+            for (int j = 0; j < figuresWhite.size(); j++){
+               /* if (figuresBlack.get(i).y + 1 == figuresWhite.get(j).y || figuresBlack.get(i).y + 2 == figuresWhite.get(j).y){
+                    figuresBlack.get(i).y = figuresWhite.get(j).y;
                 }
-                if (pawnsBlack.get(i).y == pawnsWhite.get(j).y && pawnsBlack.get(i).x == pawnsWhite.get(j).x){
-                    pawnsWhite.remove(j);
+                if (figuresBlack.get(i).y == figuresWhite.get(j).y && figuresBlack.get(i).x == figuresWhite.get(j).x){
+                    figuresWhite.remove(j);
                 }*/
             }
         }
@@ -120,12 +179,12 @@ public class ChessBoard {
             }
         }
 
-        for (int i = 0; i < pawnsWhite.size(); i ++){
-            chessTiles[pawnsWhite.get(i).x][pawnsWhite.get(i).y].drawFigure(g, pawnsWhite.get(i));
+        for (int i = 0; i < figuresWhite.size(); i ++){
+            chessTiles[figuresWhite.get(i).x][figuresWhite.get(i).y].drawFigure(g, figuresWhite.get(i));
         }
-        if (pawnsBlack.size() != 0)
-        for (int i = 0; i < pawnsBlack.size(); i ++){
-            chessTiles[pawnsBlack.get(i).x][pawnsBlack.get(i).y].drawFigure(g, pawnsBlack.get(i));
+        if (figuresBlack.size() != 0)
+        for (int i = 0; i < figuresBlack.size(); i ++){
+            chessTiles[figuresBlack.get(i).x][figuresBlack.get(i).y].drawFigure(g, figuresBlack.get(i));
         }
     }
 

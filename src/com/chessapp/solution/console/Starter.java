@@ -1,9 +1,7 @@
 package com.chessapp.solution.console;
 
-import com.chessapp.solution.ChessBoard;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by Admin on 19.10.2017.

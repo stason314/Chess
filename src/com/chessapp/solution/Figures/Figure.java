@@ -20,7 +20,6 @@ public abstract class Figure {
     public abstract List<ChessPosition> move(ChessBoard chessBoard);
 
     public abstract void draw(Graphics2D g, int x, int y);
-    protected abstract void loadImage();
 
 
 }

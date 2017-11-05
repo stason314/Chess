@@ -57,6 +57,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameRender();
         gameDraw();
+        gameRender();
+        gameDraw();
        // chessBoard.updateWhite();
 
 

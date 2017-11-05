@@ -12,26 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Stanislav on 20.10.2017.
+ * Created by Stanislav on 05.11.2017.
  */
-public class Pawn extends Figure {
+public class Knight extends Figure {
 
-    public Pawn(ChessColor chessColor) {
+    public Knight(ChessColor chessColor) {
         color = chessColor;
-        x = 0;
-        y = 0;
-
     }
 
     @Override
     public List<ChessPosition> move(ChessBoard chessBoard) {
         List<ChessPosition> moveList = new ArrayList<>();
         if (color == ChessColor.WHITE) {
-            for (Figure figure : chessBoard.figuresBlack) {
-                if (y - 1 != figure.y && x == figure.x && y - 1 >= 0) {
+            for (Figure pawn : chessBoard.figuresBlack) {
+                if (y - 1 != pawn.y && x == pawn.x && y - 1 >= 0) {
                     moveList.add(new ChessPosition(x, y - 1));
                 }
-                if (y - 2 != figure.y && x == figure.x && y - 2 >= 0) {
+                if (y - 2 != pawn.y && x == pawn.x && y - 2 >= 0) {
                     moveList.add(new ChessPosition(x, y - 2));
                 }
             }
@@ -46,13 +43,13 @@ public class Pawn extends Figure {
         }
 
         if (color == ChessColor.BLACK) {
-            for (Figure figure : chessBoard.figuresWhite) {
-                if (y + 1 != figure.y && x == figure.x && y + 1 <= 7) {
+            for (Figure pawn : chessBoard.figuresWhite) {
+                if (y + 1 != pawn.y && x == pawn.x && y + 1 <= 7) {
                     moveList.add(new ChessPosition(x, y + 1));
                 }
-               /* if (y + 2 != figure.y && x == figure.x && y + 2 <= 7) {
+                if (y + 2 != pawn.y && x == pawn.x && y + 2 <= 7) {
                     moveList.add(new ChessPosition(x, y + 2));
-                }*/
+                }
             }
             for (int i = 0; i < moveList.size(); i++) {
                 if (moveList.get(i).y == y) {
@@ -67,13 +64,13 @@ public class Pawn extends Figure {
     }
 
     @Override
-    public void draw(Graphics2D g,int x, int y) {
+    public void draw(Graphics2D g, int x, int y) {
         try {
             if (color == ChessColor.WHITE){
-                image = ImageIO.read(new File("img/whitePawn.png"));
+                image = ImageIO.read(new File("img/whiteKnight.png"));
             }
             if (color == ChessColor.BLACK){
-                image = ImageIO.read(new File("img/blackPawn.png"));
+                image = ImageIO.read(new File("img/blackKnight.png"));
             }
 
         }catch (IOException e){
@@ -81,24 +78,4 @@ public class Pawn extends Figure {
         }
         g.drawImage(image, x , y , null);
     }
-
-    /*@Override
-    public void update() {
-        int randYB = 1 +(int) (Math.random() * 2);
-        int randYW = 1 +(int) (Math.random() * 3);
-
-        if (color == color.BLACK){
-          //  y += randYB;
-        }
-        if (color == color.WHITE){
-           // y -= randYW;
-        }
-        if (y >= 7){
-            y = 7;
-        }
-        if (y <= 0){
-            y = 0;
-        }
-    }*/
-
 }
