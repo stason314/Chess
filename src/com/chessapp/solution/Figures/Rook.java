@@ -24,39 +24,27 @@ public class Rook extends Figure {
     public List<ChessPosition> move(ChessBoard chessBoard) {
         List<ChessPosition> moveList = new ArrayList<>();
         if (color == ChessColor.WHITE) {
-            for (Figure pawn : chessBoard.figuresBlack) {
-                if (y - 1 != pawn.y && x == pawn.x && y - 1 >= 0) {
-                    moveList.add(new ChessPosition(x, y - 1));
-                }
-                if (y - 2 != pawn.y && x == pawn.x && y - 2 >= 0) {
-                    moveList.add(new ChessPosition(x, y - 2));
-                }
-            }
-            for (int i = 0; i < moveList.size(); i++) {
-                if (moveList.get(i).y == y) {
-                    moveList.remove(i);
-                }
-                if (moveList.get(i).y < 0) {
-                    moveList.remove(i);
+            for (Figure figure : chessBoard.figuresBlack) {
+                while (moveList.size() < 2){
+                    if (y - 1 != figure.y && y - 1 >= 0) {
+                        moveList.add(new ChessPosition(x, y - 1));
+                    }
+                    if (y - 2 != figure.y && y - 2 >= 0) {
+                        moveList.add(new ChessPosition(x, y - 2));
+                    }
                 }
             }
         }
 
         if (color == ChessColor.BLACK) {
-            for (Figure pawn : chessBoard.figuresWhite) {
-                if (y + 1 != pawn.y && x == pawn.x && y + 1 <= 7) {
-                    moveList.add(new ChessPosition(x, y + 1));
-                }
-                if (y + 2 != pawn.y && x == pawn.x && y + 2 <= 7) {
-                    moveList.add(new ChessPosition(x, y + 2));
-                }
-            }
-            for (int i = 0; i < moveList.size(); i++) {
-                if (moveList.get(i).y == y) {
-                    moveList.remove(i);
-                }
-                if (moveList.get(i).y > 7) {
-                    moveList.remove(i);
+            for (Figure figure : chessBoard.figuresWhite) {
+                while (moveList.size() < 2){
+                    if (y + 1 != figure.y && y + 1 <= 7) {
+                        moveList.add(new ChessPosition(x, y + 1));
+                    }
+                    if (y + 2 != figure.y && y + 2 <= 7) {
+                        moveList.add(new ChessPosition(x, y + 2));
+                    }
                 }
             }
         }
