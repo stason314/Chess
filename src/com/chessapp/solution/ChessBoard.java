@@ -174,12 +174,12 @@ public class ChessBoard {
             }
         }
 
-        for (int i = 0; i < figuresWhite.size(); i ++){
-            chessTiles[figuresWhite.get(i).x][figuresWhite.get(i).y].drawFigure(g, figuresWhite.get(i));
+        for (Figure figure : figuresWhite){
+            chessTiles[figure.x][figure.y].drawFigure(g, figure);
         }
         if (figuresBlack.size() != 0)
-        for (int i = 0; i < figuresBlack.size(); i ++){
-            chessTiles[figuresBlack.get(i).x][figuresBlack.get(i).y].drawFigure(g, figuresBlack.get(i));
+        for (Figure figure : figuresBlack){
+            chessTiles[figure.x][figure.y].drawFigure(g, figure);
         }
     }
 
