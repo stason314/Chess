@@ -30,27 +30,37 @@ public class Pawn extends Figure {
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
 
-        if (color == ChessColor.WHITE) {
-            for (Figure figure : allFig) {
-                while (moveList.size() < 2){
-                    if (y - 1 != figure.y && y - 1 >= 0) {
-                        moveList.add(new ChessPosition(x, y - 1));
-                    }
-                    if (y - 2 != figure.y && y - 2 >= 0) {
-                        moveList.add(new ChessPosition(x, y - 2));
-                    }
-                }
-            }
-        }
+     if (color == ChessColor.WHITE){
+         ChessPosition y1 = new ChessPosition(x, y - 1);
+         ChessPosition y2 = new ChessPosition(x, y - 2);
+
+         moveList.add(y1);
+         moveList.add(y2);
+
+         for (Figure figure : allFig) {
+             if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
+                 moveList.remove(y1);
+             }
+             if ((y - 2 == figure.y && x == figure.x) || y - 2 < 0) {
+                 moveList.remove(y2);
+             }
+         }
+     }
+
+
         if (color == ChessColor.BLACK) {
-            for (Figure figure : chessBoard.figuresWhite) {
-                while (moveList.size() < 2){
-                    if (y + 1 != figure.y && y + 1 <= 7) {
-                        moveList.add(new ChessPosition(x, y + 1));
-                    }
-                    if (y + 2 != figure.y && y + 2 <= 7) {
-                        moveList.add(new ChessPosition(x, y + 2));
-                    }
+            ChessPosition y1 = new ChessPosition(x, y + 1);
+            ChessPosition y2 = new ChessPosition(x, y + 2);
+
+            moveList.add(y1);
+            moveList.add(y2);
+
+            for (Figure figure : allFig) {
+                if ((y + 1 == figure.y && x == figure.x) || y + 1 > 7){
+                    moveList.remove(y1);
+                }
+                if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7) {
+                    moveList.remove(y2);
                 }
             }
         }
