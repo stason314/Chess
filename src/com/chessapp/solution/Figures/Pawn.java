@@ -29,6 +29,7 @@ public class Pawn extends Figure {
         List<Figure> allFig = new ArrayList<>();
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
+
         if (color == ChessColor.WHITE) {
             for (Figure figure : allFig) {
                 while (moveList.size() < 2){
@@ -40,16 +41,7 @@ public class Pawn extends Figure {
                     }
                 }
             }
-            for (int i = 0; i < moveList.size(); i++){
-                for (Figure figure : allFig){
-                    if (moveList.get(i).y == figure.y){
-                        moveList.remove(i);
-                    }
-                }
-
-            }
         }
-
         if (color == ChessColor.BLACK) {
             for (Figure figure : chessBoard.figuresWhite) {
                 while (moveList.size() < 2){

@@ -51,7 +51,6 @@ public class ChessBoard {
         figuresBlack.add(new Rook(ChessColor.BLACK));
         figuresBlack.get(9).x = 7;
         figuresBlack.get(9).y = 0;
-
         figuresWhite.add(new Rook(ChessColor.WHITE));
         figuresWhite.get(8).x = 0;
         figuresWhite.get(8).y = 7;
@@ -65,7 +64,6 @@ public class ChessBoard {
         figuresBlack.add(new Knight(ChessColor.BLACK));
         figuresBlack.get(11).x = 6;
         figuresBlack.get(11).y = 0;
-
         figuresWhite.add(new Knight(ChessColor.WHITE));
         figuresWhite.get(10).x = 1;
         figuresWhite.get(10).y = 7;
@@ -79,7 +77,6 @@ public class ChessBoard {
         figuresBlack.add(new Bishop(ChessColor.BLACK));
         figuresBlack.get(13).x = 5;
         figuresBlack.get(13).y = 0;
-
         figuresWhite.add(new Bishop(ChessColor.WHITE));
         figuresWhite.get(12).x = 2;
         figuresWhite.get(12).y = 7;
@@ -90,7 +87,6 @@ public class ChessBoard {
         figuresBlack.add(new Queen(ChessColor.BLACK));
         figuresBlack.get(14).x = 3;
         figuresBlack.get(14).y = 0;
-
         figuresWhite.add(new Queen(ChessColor.WHITE));
         figuresWhite.get(14).x = 3;
         figuresWhite.get(14).y = 7;
@@ -98,7 +94,6 @@ public class ChessBoard {
         figuresBlack.add(new King(ChessColor.BLACK));
         figuresBlack.get(15).x = 4;
         figuresBlack.get(15).y = 0;
-
         figuresWhite.add(new King(ChessColor.WHITE));
         figuresWhite.get(15).x = 4;
         figuresWhite.get(15).y = 7;
