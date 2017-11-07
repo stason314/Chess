@@ -103,7 +103,7 @@ public class ChessBoard {
     }
 
     public void updateWhite(){
-        int randNum = (int) (Math.random() * 8/*figuresWhite.size()*/); //TODO DEBUG
+        int randNum = (int) (Math.random() * figuresWhite.size()); //TODO DEBUG
 
 
         moveList = figuresWhite.get(randNum).move(this);
@@ -133,7 +133,7 @@ public class ChessBoard {
 
     public void updateBlack(){
 
-        int randNum = (int) (Math.random() * 8/*figuresBlack.size()*/); //TODO DEBUG
+        int randNum = (int) (Math.random() * figuresBlack.size()); //TODO DEBUG
 
         moveList = figuresBlack.get(randNum).move(this);
         if (moveList.size() != 0){
