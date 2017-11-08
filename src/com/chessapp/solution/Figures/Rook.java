@@ -27,40 +27,29 @@ public class Rook extends Figure {
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
 
-        if (color == ChessColor.WHITE){
-            ChessPosition y1 = new ChessPosition(x, y - 1);
-            ChessPosition y2 = new ChessPosition(x, y - 2);
 
-            moveList.add(y1);
-            moveList.add(y2);
-
-            for (Figure figure : allFig) {
-                if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
-                    moveList.remove(y1);
+        for (Figure figure : allFig) {
+            /*for (int i = 0; i < 8; i++){
+                moveList.add(new ChessPosition(x ,y + i));
+                if (moveList.get(moveList.size() - 1).y == figure.y || moveList.get(moveList.size() - 1).y > 7){
+                    break;
                 }
-                if ((y - 2 == figure.y && x == figure.x) || y - 2 < 0) {
-                    moveList.remove(y2);
+                if (moveList.size() > 7){
+                    break;
                 }
             }
+            for (int i = 0; i < 8; i++){
+                moveList.add(new ChessPosition(x + i ,y));
+                if (moveList.get(moveList.size() - 1).x == figure.x || moveList.get(moveList.size() - 1).x > 7){
+                    break;
+                }
+                if (moveList.size() > 7){
+                    break;
+                }
+            }*/
+
         }
 
-
-        if (color == ChessColor.BLACK) {
-            ChessPosition y1 = new ChessPosition(x, y + 1);
-            ChessPosition y2 = new ChessPosition(x, y + 2);
-
-            moveList.add(y1);
-            moveList.add(y2);
-
-            for (Figure figure : allFig) {
-                if ((y + 1 == figure.y && x == figure.x) || y + 1 > 7){
-                    moveList.remove(y1);
-                }
-                if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7) {
-                    moveList.remove(y2);
-                }
-            }
-        }
         return moveList;
     }
 

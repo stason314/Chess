@@ -27,40 +27,33 @@ public class Knight extends Figure {
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
 
-        if (color == ChessColor.WHITE){
-            ChessPosition y1 = new ChessPosition(x, y - 1);
-            ChessPosition y2 = new ChessPosition(x, y - 2);
+        ChessPosition y1 = new ChessPosition(x + 1, y - 2);
+        ChessPosition y2 = new ChessPosition(x - 1, y - 2);
+        ChessPosition y3 = new ChessPosition(x + 1, y + 2);
+        ChessPosition y4 = new ChessPosition(x - 1, y + 2);
 
-            moveList.add(y1);
-            moveList.add(y2);
+        moveList.add(y1);
+        moveList.add(y2);
+        moveList.add(y3);
+        moveList.add(y4);
 
-            for (Figure figure : allFig) {
-                if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
-                    moveList.remove(y1);
-                }
-                if ((y - 2 == figure.y && x == figure.x) || y - 2 < 0) {
-                    moveList.remove(y2);
-                }
+        for (Figure figure : allFig) {
+            if ((y - 2 == figure.y && x + 1 == figure.x) || y - 2 < 0 || x + 1 > 7){
+                moveList.remove(y1);
+            }
+            if ((y - 2 == figure.y && x - 1 == figure.x) || y - 2 < 0 || x - 1 < 0) {
+                moveList.remove(y2);
+            }
+            if ((y + 2 == figure.y && x + 1 == figure.x) || y + 2 > 7 || x + 1 > 7){
+                moveList.remove(y3);
+            }
+            if ((y + 2 == figure.y && x - 1 == figure.x) || y + 2 > 7 || x - 1 < 0) {
+                moveList.remove(y4);
             }
         }
 
 
-        if (color == ChessColor.BLACK) {
-            ChessPosition y1 = new ChessPosition(x, y + 1);
-            ChessPosition y2 = new ChessPosition(x, y + 2);
 
-            moveList.add(y1);
-            moveList.add(y2);
-
-            for (Figure figure : allFig) {
-                if ((y + 1 == figure.y && x == figure.x) || y + 1 > 7){
-                    moveList.remove(y1);
-                }
-                if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7) {
-                    moveList.remove(y2);
-                }
-            }
-        }
         return moveList;
     }
 

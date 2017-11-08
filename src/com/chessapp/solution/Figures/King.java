@@ -32,12 +32,19 @@ public class King extends Figure {
         ChessPosition y2 = new ChessPosition(x, y + 1);
         ChessPosition x1 = new ChessPosition(x - 1, y);
         ChessPosition x2 = new ChessPosition(x + 1, y);
-
+        ChessPosition xy1 = new ChessPosition(x - 1, y - 1);
+        ChessPosition xy2 = new ChessPosition(x + 1, y + 1);
+        ChessPosition xy3 = new ChessPosition(x - 1, y + 1);
+        ChessPosition xy4 = new ChessPosition(x + 1, y - 1);
 
         moveList.add(y1);
         moveList.add(y2);
         moveList.add(x1);
         moveList.add(x2);
+        moveList.add(xy1);
+        moveList.add(xy2);
+        moveList.add(xy3);
+        moveList.add(xy4);
 
         for (Figure figure : allFig) {
             if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
@@ -51,6 +58,18 @@ public class King extends Figure {
             }
             if ((x + 1 == figure.x && y == figure.y) || x + 1 > 7){
                 moveList.remove(x2);
+            }
+            if ((y - 1 == figure.y && x - 1 == figure.x) || y - 1 < 0 || x - 1 < 0){
+                moveList.remove(xy1);
+            }
+            if ((y + 1 == figure.y && x + 1 == figure.x) || y + 1 > 7 || x + 1 > 7){
+                moveList.remove(xy2);
+            }
+            if ((x - 1 == figure.x && y + 1 == figure.y) || x - 1 < 0 || y + 1 > 7){
+                moveList.remove(xy3);
+            }
+            if ((x + 1 == figure.x && y - 1 == figure.y) || x + 1 > 7 || y - 1 < 0){
+                moveList.remove(xy4);
             }
         }
 

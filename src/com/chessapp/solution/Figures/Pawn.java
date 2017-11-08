@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Pawn extends Figure {
 
-    boolean firstStep;
+    private boolean firstStep;
 
     public Pawn(ChessColor chessColor) {
         color = chessColor;
