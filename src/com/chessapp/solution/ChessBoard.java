@@ -107,9 +107,14 @@ public class ChessBoard {
 
 
         moveList = figuresWhite.get(randNum).move(this);
+        while (moveList.size() == 0){
+            randNum = (int) (Math.random() * figuresWhite.size());
+            moveList = figuresWhite.get(randNum).move(this);
+        }
         if (moveList.size() != 0){
             int randI = (int) (Math.random() * moveList.size());
             figuresWhite.get(randNum).y = moveList.get(randI).y;
+            figuresWhite.get(randNum).x = moveList.get(randI).x;
         }
 
         for (int i = 0; i < figuresWhite.size(); i++){
@@ -136,9 +141,14 @@ public class ChessBoard {
         int randNum = (int) (Math.random() * figuresBlack.size()); 
 
         moveList = figuresBlack.get(randNum).move(this);
+        while (moveList.size() == 0){
+            randNum = (int) (Math.random() * figuresBlack.size());
+            moveList = figuresBlack.get(randNum).move(this);
+        }
         if (moveList.size() != 0){
             int randI = (int) (Math.random() * moveList.size());
             figuresBlack.get(randNum).y = moveList.get(randI).y;
+            figuresBlack.get(randNum).x = moveList.get(randI).x;
         }
 
         for (int i = 0; i < figuresBlack.size(); i++){

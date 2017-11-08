@@ -16,10 +16,11 @@ import java.util.List;
  */
 public class Pawn extends Figure {
 
+    boolean firstStep;
+
     public Pawn(ChessColor chessColor) {
         color = chessColor;
-        x = 0;
-        y = 0;
+        firstStep = true;
 
     }
 
@@ -41,7 +42,7 @@ public class Pawn extends Figure {
              if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
                  moveList.remove(y1);
              }
-             if ((y - 2 == figure.y && x == figure.x) || y - 2 < 0) {
+             if ((y - 2 == figure.y && x == figure.x) || (y - 2 < 0) || !firstStep) {
                  moveList.remove(y2);
              }
          }
@@ -59,11 +60,13 @@ public class Pawn extends Figure {
                 if ((y + 1 == figure.y && x == figure.x) || y + 1 > 7){
                     moveList.remove(y1);
                 }
-                if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7) {
+                if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7 || !firstStep) {
                     moveList.remove(y2);
                 }
             }
         }
+
+        firstStep = false;
         return moveList;
     }
 
