@@ -73,8 +73,6 @@ public class King extends Figure {
             }
         }
 
-
-
         return moveList;
     }
 

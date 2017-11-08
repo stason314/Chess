@@ -26,27 +26,19 @@ public class Rook extends Figure {
         List<Figure> allFig = new ArrayList<>();
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
+        int countY = y;
+        moveList.add(new ChessPosition(x , y ));
 
 
         for (Figure figure : allFig) {
-            /*for (int i = 0; i < 8; i++){
-                moveList.add(new ChessPosition(x ,y + i));
-                if (moveList.get(moveList.size() - 1).y == figure.y || moveList.get(moveList.size() - 1).y > 7){
-                    break;
-                }
-                if (moveList.size() > 7){
-                    break;
+
+            if (x == figure.x){
+                while (moveList.get(moveList.size() - 1).y != figure.y && moveList.get(moveList.size() - 1).x != figure.x){
+                    moveList.add(new ChessPosition(x, countY--));
                 }
             }
-            for (int i = 0; i < 8; i++){
-                moveList.add(new ChessPosition(x + i ,y));
-                if (moveList.get(moveList.size() - 1).x == figure.x || moveList.get(moveList.size() - 1).x > 7){
-                    break;
-                }
-                if (moveList.size() > 7){
-                    break;
-                }
-            }*/
+
+
 
         }
 
