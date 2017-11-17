@@ -23,9 +23,7 @@ public class Rook extends Figure {
     @Override
     public List<ChessPosition> move(ChessBoard chessBoard) {
         List<ChessPosition> moveList = new ArrayList<>();
-        List<Figure> allFig = new ArrayList<>();
-        allFig.addAll(chessBoard.figuresBlack);
-        allFig.addAll(chessBoard.figuresWhite);
+
         for (int countY = y - 1; countY > 0; countY--){
             if (chessBoard.chessTiles[x][countY].figure == null){
                 moveList.add(new ChessPosition(x, countY));

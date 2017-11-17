@@ -23,44 +23,94 @@ public class Queen extends Figure {
     @Override
     public List<ChessPosition> move(ChessBoard chessBoard) {
         List<ChessPosition> moveList = new ArrayList<>();
-        List<Figure> allFig = new ArrayList<>();
-        allFig.addAll(chessBoard.figuresBlack);
-        allFig.addAll(chessBoard.figuresWhite);
 
-        if (color == ChessColor.WHITE){
-            ChessPosition y1 = new ChessPosition(x, y - 1);
-            ChessPosition y2 = new ChessPosition(x, y - 2);
-
-            moveList.add(y1);
-            moveList.add(y2);
-
-            for (Figure figure : allFig) {
-                if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
-                    moveList.remove(y1);
-                }
-                if ((y - 2 == figure.y && x == figure.x) || y - 2 < 0) {
-                    moveList.remove(y2);
-                }
+        for (int countY = y - 1; countY >= 0; countY--){
+            if (chessBoard.chessTiles[x][countY].figure == null){
+                moveList.add(new ChessPosition(x, countY));
+            }
+            if (chessBoard.chessTiles[x][countY].figure != null){
+                break;
+            }
+        }
+        for (int countY = y + 1; countY < 8; countY++){
+            if (chessBoard.chessTiles[x][countY].figure == null){
+                moveList.add(new ChessPosition(x, countY));
+            }
+            if (chessBoard.chessTiles[x][countY].figure != null){
+                break;
+            }
+        }
+        for (int countX = x - 1; countX >= 0; countX--){
+            if (chessBoard.chessTiles[countX][y].figure == null){
+                moveList.add(new ChessPosition(countX, y));
+            }
+            if (chessBoard.chessTiles[countX][y].figure != null){
+                break;
+            }
+        }
+        for (int countX = x + 1; countX < 8; countX++){
+            if (chessBoard.chessTiles[countX][y].figure == null){
+                moveList.add(new ChessPosition(countX, y));
+            }
+            if (chessBoard.chessTiles[countX][y].figure != null){
+                break;
             }
         }
 
-
-        if (color == ChessColor.BLACK) {
-            ChessPosition y1 = new ChessPosition(x, y + 1);
-            ChessPosition y2 = new ChessPosition(x, y + 2);
-
-            moveList.add(y1);
-            moveList.add(y2);
-
-            for (Figure figure : allFig) {
-                if ((y + 1 == figure.y && x == figure.x) || y + 1 > 7){
-                    moveList.remove(y1);
+        //diagonal
+        int countXm = x - 1;
+        int countXp = x + 1;
+        for (int countY = y + 1; countY < 8; countY++){
+            if (countXm >= 0){
+                if (chessBoard.chessTiles[countXm][countY].figure != null){
+                    break;
                 }
-                if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7) {
-                    moveList.remove(y2);
+
+                if (chessBoard.chessTiles[countXm][countY].figure == null){
+                    moveList.add(new ChessPosition(countXm, countY));
+                    countXm--;
                 }
+
+            }
+
+            if (countXp < 8){
+                if (chessBoard.chessTiles[countXp][countY].figure != null){
+                    break;
+                }
+                if (chessBoard.chessTiles[countXp][countY].figure == null){
+                    moveList.add(new ChessPosition(countXp, countY));
+                    countXp++;
+                }
+
             }
         }
+
+        countXm = x - 1;
+        countXp = x + 1;
+        for (int countY = y - 1; countY >= 0; countY--){
+
+            if (countXm >= 0){
+                if (chessBoard.chessTiles[countXm][countY].figure != null){
+                    break;
+                 }
+                if (chessBoard.chessTiles[countXm][countY].figure == null){
+                    moveList.add(new ChessPosition(countXm, countY));
+                    countXm--;
+                }
+
+            }
+            if (countXp < 8){
+                if (chessBoard.chessTiles[countXp][countY].figure != null){
+                    break;
+                }
+                if (chessBoard.chessTiles[countXp][countY].figure == null){
+                    moveList.add(new ChessPosition(countXp, countY));
+                    countXp++;
+                }
+
+            }
+        }
+
         return moveList;
     }
 

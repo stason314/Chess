@@ -52,6 +52,32 @@ public class Knight extends Figure {
             }
         }
 
+       /* if (chessBoard.chessTiles[x + 1][y - 2].figure == null && y - 2 < 0 || x + 1 > 7){
+            moveList.add(new ChessPosition(x + 1, y - 2));
+        }
+        if (chessBoard.chessTiles[x - 1][y - 2].figure == null && y - 2 < 0 || x - 1 < 0){
+            moveList.add(new ChessPosition(x - 1, y - 2));
+        }
+        if (chessBoard.chessTiles[x + 1][y + 2].figure == null &&  y + 2 < 7 || x + 1 > 7){
+            moveList.add(new ChessPosition(x + 1, y + 2));
+        }
+        if (chessBoard.chessTiles[x - 1][y + 2].figure == null &&  y + 2 < 7 || x - 1 < 0){
+            moveList.add(new ChessPosition(x - 1, y + 2));
+        }
+
+        if (chessBoard.chessTiles[x + 2][y - 1].figure == null && y - 1 < 0 || x + 2 > 7){
+            moveList.add(new ChessPosition(x + 2, y - 1));
+        }
+        if (chessBoard.chessTiles[x + 2][y + 1].figure == null && y + 1 < 0 || x + 2 > 7){
+            moveList.add(new ChessPosition(x + 2, y + 1));
+        }
+        if (chessBoard.chessTiles[x - 2][y - 1].figure == null && y - 1 < 0 || x + 2 > 7){
+            moveList.add(new ChessPosition(x - 2, y - 1));
+        }
+        if (chessBoard.chessTiles[x - 2][y + 1].figure == null && y + 1 < 7 || x + 2 > 7){
+            moveList.add(new ChessPosition(x - 2, y + 1));
+        }*/
+
 
 
         return moveList;
