@@ -14,6 +14,7 @@ public class ChessTile {
     ChessColor chessColor;
     public int xReal, yReal;
     public int x, y;
+    public Figure figure;
 
     public ChessTile() {
         //x = 0;
@@ -28,12 +29,8 @@ public class ChessTile {
 
     public void drawFigure(Graphics2D g, Figure figure){
         figure.draw(g, xReal, yReal);
+        this.figure = figure;
     }
 
-    public boolean haveFigure(Figure figure){
-        if (figure.x == x && figure.y == y){
-            return true;
-        }else return false;
-    }
 
 }

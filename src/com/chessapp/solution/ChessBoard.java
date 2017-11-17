@@ -178,9 +178,11 @@ public class ChessBoard {
             for (int j = 0; j < 8; j++) {
                 if ((i + j) % 2 == 0) {
                     chessTiles[i][j].draw(g, tileWhite);
+                    chessTiles[i][j].figure = null;
                 }
                 else {
                     chessTiles[i][j].draw(g, tileBlack);
+                    chessTiles[i][j].figure = null;
                 }
             }
         }

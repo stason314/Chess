@@ -26,20 +26,37 @@ public class Rook extends Figure {
         List<Figure> allFig = new ArrayList<>();
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
-        int countY = y;
-        moveList.add(new ChessPosition(x , y ));
-
-
-        for (Figure figure : allFig) {
-
-            if (x == figure.x){
-                while (moveList.get(moveList.size() - 1).y != figure.y && moveList.get(moveList.size() - 1).x != figure.x){
-                    moveList.add(new ChessPosition(x, countY--));
-                }
+        for (int countY = y - 1; countY > 0; countY--){
+            if (chessBoard.chessTiles[x][countY].figure == null){
+                moveList.add(new ChessPosition(x, countY));
             }
-
-
-
+            if (chessBoard.chessTiles[x][countY].figure != null){
+                break;
+            }
+        }
+        for (int countY = y + 1; countY < 8; countY++){
+            if (chessBoard.chessTiles[x][countY].figure == null){
+                moveList.add(new ChessPosition(x, countY));
+            }
+            if (chessBoard.chessTiles[x][countY].figure != null){
+                break;
+            }
+        }
+        for (int countX = x - 1; countX > 0; countX--){
+            if (chessBoard.chessTiles[countX][y].figure == null){
+                moveList.add(new ChessPosition(countX, y));
+            }
+            if (chessBoard.chessTiles[countX][y].figure != null){
+                break;
+            }
+        }
+        for (int countX = x + 1; countX < 8; countX++){
+            if (chessBoard.chessTiles[countX][y].figure == null){
+                moveList.add(new ChessPosition(countX, y));
+            }
+            if (chessBoard.chessTiles[countX][y].figure != null){
+                break;
+            }
         }
 
         return moveList;

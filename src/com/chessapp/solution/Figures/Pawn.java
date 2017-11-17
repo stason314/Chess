@@ -48,7 +48,6 @@ public class Pawn extends Figure {
          }
      }
 
-
         if (color == ChessColor.BLACK) {
             ChessPosition y1 = new ChessPosition(x, y + 1);
             ChessPosition y2 = new ChessPosition(x, y + 2);
