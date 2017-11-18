@@ -32,10 +32,20 @@ public class Knight extends Figure {
         ChessPosition y3 = new ChessPosition(x + 1, y + 2);
         ChessPosition y4 = new ChessPosition(x - 1, y + 2);
 
+        ChessPosition x1 = new ChessPosition(x + 2, y + 1);
+        ChessPosition x2 = new ChessPosition(x + 2, y - 1);
+        ChessPosition x3 = new ChessPosition(x - 2, y + 1);
+        ChessPosition x4 = new ChessPosition(x - 2, y - 1);
+
         moveList.add(y1);
         moveList.add(y2);
         moveList.add(y3);
         moveList.add(y4);
+
+        moveList.add(x1);
+        moveList.add(x2);
+        moveList.add(x3);
+        moveList.add(x4);
 
         for (Figure figure : allFig) {
             if ((y - 2 == figure.y && x + 1 == figure.x) || y - 2 < 0 || x + 1 > 7){
@@ -50,35 +60,20 @@ public class Knight extends Figure {
             if ((y + 2 == figure.y && x - 1 == figure.x) || y + 2 > 7 || x - 1 < 0) {
                 moveList.remove(y4);
             }
-        }
 
-       /* if (chessBoard.chessTiles[x + 1][y - 2].figure == null && y - 2 < 0 || x + 1 > 7){
-            moveList.add(new ChessPosition(x + 1, y - 2));
+            if ((y + 1 == figure.y && x + 2 == figure.x) || y + 1 > 7 || x + 2 > 7){
+                moveList.remove(x1);
+            }
+            if ((y - 1 == figure.y && x + 2 == figure.x) || y - 1 < 0 || x + 2 > 7){
+                moveList.remove(x2);
+            }
+            if ((y + 1 == figure.y && x - 2 == figure.x) || y + 1 > 7 || x - 2 < 0){
+                moveList.remove(x3);
+            }
+            if ((y - 1 == figure.y && x - 2 == figure.x) || y - 1 < 0 || x - 2 < 0){
+                moveList.remove(x4);
+            }
         }
-        if (chessBoard.chessTiles[x - 1][y - 2].figure == null && y - 2 < 0 || x - 1 < 0){
-            moveList.add(new ChessPosition(x - 1, y - 2));
-        }
-        if (chessBoard.chessTiles[x + 1][y + 2].figure == null &&  y + 2 < 7 || x + 1 > 7){
-            moveList.add(new ChessPosition(x + 1, y + 2));
-        }
-        if (chessBoard.chessTiles[x - 1][y + 2].figure == null &&  y + 2 < 7 || x - 1 < 0){
-            moveList.add(new ChessPosition(x - 1, y + 2));
-        }
-
-        if (chessBoard.chessTiles[x + 2][y - 1].figure == null && y - 1 < 0 || x + 2 > 7){
-            moveList.add(new ChessPosition(x + 2, y - 1));
-        }
-        if (chessBoard.chessTiles[x + 2][y + 1].figure == null && y + 1 < 0 || x + 2 > 7){
-            moveList.add(new ChessPosition(x + 2, y + 1));
-        }
-        if (chessBoard.chessTiles[x - 2][y - 1].figure == null && y - 1 < 0 || x + 2 > 7){
-            moveList.add(new ChessPosition(x - 2, y - 1));
-        }
-        if (chessBoard.chessTiles[x - 2][y + 1].figure == null && y + 1 < 7 || x + 2 > 7){
-            moveList.add(new ChessPosition(x - 2, y + 1));
-        }*/
-
-
 
         return moveList;
     }
