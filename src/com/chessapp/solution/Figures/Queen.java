@@ -59,19 +59,21 @@ public class Queen extends Figure {
 
         //diagonal
         int countXm = x - 1;
-        int countXp = x + 1;
         for (int countY = y + 1; countY < 8; countY++){
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
                     break;
                 }
-
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
                     moveList.add(new ChessPosition(countXm, countY));
-                    countXm--;
-                }
 
+                }
+                countXm--;
             }
+
+        }
+        int countXp = x + 1;
+        for (int countY = y + 1; countY < 8; countY++){
 
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
@@ -79,14 +81,14 @@ public class Queen extends Figure {
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
                     moveList.add(new ChessPosition(countXp, countY));
-                    countXp++;
-                }
 
+                }
+                countXp++;
             }
         }
 
         countXm = x - 1;
-        countXp = x + 1;
+
         for (int countY = y - 1; countY >= 0; countY--){
 
             if (countXm >= 0){
@@ -95,19 +97,23 @@ public class Queen extends Figure {
                  }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
                     moveList.add(new ChessPosition(countXm, countY));
-                    countXm--;
-                }
 
+                }
+                countXm--;
             }
+        }
+        countXp = x + 1;
+        for (int countY = y - 1; countY >= 0; countY--){
+
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
                     moveList.add(new ChessPosition(countXp, countY));
-                    countXp++;
-                }
 
+                }
+                countXp++;
             }
         }
 
