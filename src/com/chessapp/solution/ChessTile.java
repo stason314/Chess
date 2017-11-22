@@ -11,7 +11,6 @@ import java.awt.*;
  */
 public class ChessTile {
 
-    ChessColor chessColor;
     public int xReal, yReal;
     public int x, y;
     public Figure figure;

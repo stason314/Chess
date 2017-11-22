@@ -73,6 +73,31 @@ public class Knight extends Figure {
             if ((y - 1 == figure.y && x - 2 == figure.x) || y - 1 < 0 || x - 2 < 0){
                 moveList.remove(x4);
             }
+
+            if (y1.y == figure.y && y1.x == figure.x && figure.color != color){
+                moveList.add(y1);
+            }
+            if (y2.y == figure.y && y2.x == figure.x && figure.color != color){
+                moveList.add(y2);
+            }
+            if (y3.y == figure.y && y3.x == figure.x && figure.color != color){
+                moveList.add(y3);
+            }
+            if (y4.y == figure.y && y4.x == figure.x && figure.color != color){
+                moveList.add(y4);
+            }
+            if (x1.y == figure.y && x1.x == figure.x && figure.color != color){
+                moveList.add(x1);
+            }
+            if (x2.y == figure.y && x2.x == figure.x && figure.color != color){
+                moveList.add(x2);
+            }
+            if (x3.y == figure.y && x3.x == figure.x && figure.color != color){
+                moveList.add(x3);
+            }
+            if (x4.y == figure.y && x4.x == figure.x && figure.color != color){
+                moveList.add(x1);
+            }
         }
 
         return moveList;

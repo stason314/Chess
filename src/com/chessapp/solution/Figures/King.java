@@ -71,6 +71,31 @@ public class King extends Figure {
             if ((x + 1 == figure.x && y - 1 == figure.y) || x + 1 > 7 || y - 1 < 0){
                 moveList.remove(xy4);
             }
+
+            if (y1.y == figure.y && y1.x == figure.x && figure.color != color){
+                moveList.add(y1);
+            }
+            if (y2.y == figure.y && y2.x == figure.x && figure.color != color){
+                moveList.add(y2);
+            }
+            if (x1.y == figure.y && x1.x == figure.x && figure.color != color){
+                moveList.add(x1);
+            }
+            if (x2.y == figure.y && x2.x == figure.x && figure.color != color){
+                moveList.add(x2);
+            }
+            if (xy1.y == figure.y && xy1.x == figure.x && figure.color != color){
+                moveList.add(xy1);
+            }
+            if (xy2.y == figure.y && xy2.x == figure.x && figure.color != color){
+                moveList.add(xy2);
+            }
+            if (xy3.y == figure.y && xy3.x == figure.x && figure.color != color){
+                moveList.add(xy3);
+            }
+            if (xy4.y == figure.y && xy4.x == figure.x && figure.color != color){
+                moveList.add(xy4);
+            }
         }
 
         return moveList;
