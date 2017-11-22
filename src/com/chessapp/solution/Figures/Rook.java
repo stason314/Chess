@@ -29,6 +29,9 @@ public class Rook extends Figure {
                 moveList.add(new ChessPosition(x, countY));
             }
             if (chessBoard.chessTiles[x][countY].figure != null){
+                if (chessBoard.chessTiles[x][countY].figure.color != color){
+                    moveList.add(new ChessPosition(x, countY));
+                }
                 break;
             }
         }
@@ -37,6 +40,9 @@ public class Rook extends Figure {
                 moveList.add(new ChessPosition(x, countY));
             }
             if (chessBoard.chessTiles[x][countY].figure != null){
+                if (chessBoard.chessTiles[x][countY].figure.color != color){
+                    moveList.add(new ChessPosition(x, countY));
+                }
                 break;
             }
         }
@@ -45,6 +51,9 @@ public class Rook extends Figure {
                 moveList.add(new ChessPosition(countX, y));
             }
             if (chessBoard.chessTiles[countX][y].figure != null){
+                if (chessBoard.chessTiles[countX][y].figure.color != color){
+                    moveList.add(new ChessPosition(countX, y));
+                }
                 break;
             }
         }
@@ -53,6 +62,9 @@ public class Rook extends Figure {
                 moveList.add(new ChessPosition(countX, y));
             }
             if (chessBoard.chessTiles[countX][y].figure != null){
+                if (chessBoard.chessTiles[countX][y].figure.color != color){
+                    moveList.add(new ChessPosition(countX, y));
+                }
                 break;
             }
         }

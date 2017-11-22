@@ -28,12 +28,15 @@ public class Bishop extends Figure {
         for (int countY = y + 1; countY < 8; countY++){
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
+                    if (chessBoard.chessTiles[countXm][countY].figure.color != color){
+                        moveList.add(new ChessPosition(countXm, countY));
+                    }
                     break;
                 }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
                     moveList.add(new ChessPosition(countXm, countY));
-
                 }
+
                 countXm--;
             }
 
@@ -43,11 +46,13 @@ public class Bishop extends Figure {
 
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
+                    if (chessBoard.chessTiles[countXp][countY].figure.color != color){
+                        moveList.add(new ChessPosition(countXp, countY));
+                    }
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
                     moveList.add(new ChessPosition(countXp, countY));
-
                 }
                 countXp++;
             }
@@ -58,11 +63,13 @@ public class Bishop extends Figure {
 
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
+                    if (chessBoard.chessTiles[countXm][countY].figure.color != color){
+                        moveList.add(new ChessPosition(countXm, countY));
+                    }
                     break;
                 }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
                     moveList.add(new ChessPosition(countXm, countY));
-
                 }
                 countXm--;
             }
@@ -72,12 +79,15 @@ public class Bishop extends Figure {
 
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
+                    if (chessBoard.chessTiles[countXp][countY].figure.color != color){
+                        moveList.add(new ChessPosition(countXp, countY));
+                    }
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
                     moveList.add(new ChessPosition(countXp, countY));
-
                 }
+
                 countXp++;
             }
         }

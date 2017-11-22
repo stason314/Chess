@@ -45,6 +45,12 @@ public class Pawn extends Figure {
              if ((y - 2 == figure.y && x == figure.x) || (y - 2 < 0) || !firstStep) {
                  moveList.remove(y2);
              }
+             if (figure.color != color && y - 1 == figure.y && x + 1 == figure.x){
+                 moveList.add(new ChessPosition(x + 1, y - 1));
+             }
+             if (figure.color != color && y - 1 == figure.y && x - 1 == figure.x){
+                 moveList.add(new ChessPosition(x - 1, y - 1));
+             }
          }
      }
 
@@ -62,6 +68,12 @@ public class Pawn extends Figure {
                 if ((y + 2 == figure.y && x == figure.x) || y + 2 > 7 || !firstStep) {
                     moveList.remove(y2);
                 }
+                if (figure.color != color && y + 1 == figure.y && x + 1 == figure.x){
+                    moveList.add(new ChessPosition(x + 1, y + 1));
+                }
+                if (figure.color != color && y + 1 == figure.y && x - 1 == figure.x){
+                    moveList.add(new ChessPosition(x - 1, y + 1));
+                }
             }
         }
 
@@ -78,7 +90,6 @@ public class Pawn extends Figure {
             if (color == ChessColor.BLACK){
                 image = ImageIO.read(new File("img/blackPawn.png"));
             }
-
         }catch (IOException e){
 
         }

@@ -120,13 +120,9 @@ public class ChessBoard {
         for (int i = 0; i < figuresWhite.size(); i++){
             //moveList.addAll(figuresWhite.get(i).move(this));
             for (int j = 0; j < figuresBlack.size(); j++){
-                /*if (figuresWhite.get(i).y - 1 == figuresBlack.get(j).y || figuresWhite.get(i).y - 2 == figuresBlack.get(j).y){
-                    figuresWhite.get(i).y = figuresBlack.get(j).y;
-                }
-
                 if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
                     figuresBlack.remove(j);
-                }*/
+                }
             }
         }
         for (ChessPosition chessPosition : moveList){
@@ -153,12 +149,9 @@ public class ChessBoard {
 
         for (int i = 0; i < figuresBlack.size(); i++){
             for (int j = 0; j < figuresWhite.size(); j++){
-               /* if (figuresBlack.get(i).y + 1 == figuresWhite.get(j).y || figuresBlack.get(i).y + 2 == figuresWhite.get(j).y){
-                    figuresBlack.get(i).y = figuresWhite.get(j).y;
-                }
                 if (figuresBlack.get(i).y == figuresWhite.get(j).y && figuresBlack.get(i).x == figuresWhite.get(j).x){
                     figuresWhite.remove(j);
-                }*/
+                }
             }
         }
         for (ChessPosition chessPosition : moveList){
