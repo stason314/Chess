@@ -18,6 +18,7 @@ public class Bishop extends Figure {
 
     public Bishop(ChessColor chessColor) {
         color = chessColor;
+        weight = 3;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class King extends Figure {
 
     public King(ChessColor chessColor) {
         color = chessColor;
+        weight = 200;
     }
 
     @Override

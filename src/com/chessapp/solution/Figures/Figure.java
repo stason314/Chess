@@ -16,6 +16,7 @@ public abstract class Figure {
     public int y;
     public ChessColor color;
     protected Image image;
+    public int weight;
 
     public abstract List<ChessPosition> move(ChessBoard chessBoard);
 

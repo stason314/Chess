@@ -21,6 +21,7 @@ public class Pawn extends Figure {
     public Pawn(ChessColor chessColor) {
         color = chessColor;
         firstStep = true;
+        weight = 1;
 
     }
 

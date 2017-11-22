@@ -18,6 +18,7 @@ public class Rook extends Figure {
 
     public Rook(ChessColor chessColor) {
         color = chessColor;
+        weight = 5;
     }
 
     @Override
