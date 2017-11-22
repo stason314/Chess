@@ -19,6 +19,7 @@ public class ChessBoard {
     public List<Figure> figuresWhite;
     public List<Figure> figuresBlack;
     public List<ChessPosition> moveList;
+    AIalpha aIalpha;
 
 
     public ChessBoard() {
@@ -98,14 +99,15 @@ public class ChessBoard {
         figuresWhite.get(15).x = 4;
         figuresWhite.get(15).y = 7;
 
-
+        aIalpha = new AIalpha(this);
 
     }
 
     public void updateWhite(){
-        int randNum = (int) (Math.random() * figuresWhite.size());
 
-
+        aIalpha.alphaBetaPruning(ChessColor.WHITE);
+        aIalpha.figure.step(aIalpha.bestMove);
+       /* int randNum = (int) (Math.random() * figuresWhite.size());
         moveList = figuresWhite.get(randNum).move(this);
         while (moveList.size() == 0){
             randNum = (int) (Math.random() * figuresWhite.size());
@@ -113,9 +115,8 @@ public class ChessBoard {
         }
         if (moveList.size() != 0){
             int randI = (int) (Math.random() * moveList.size());
-            figuresWhite.get(randNum).y = moveList.get(randI).y;
-            figuresWhite.get(randNum).x = moveList.get(randI).x;
-        }
+            figuresWhite.get(randNum).step(moveList.get(randI));
+        }*/
 
         for (int i = 0; i < figuresWhite.size(); i++){
             //moveList.addAll(figuresWhite.get(i).move(this));
@@ -143,8 +144,7 @@ public class ChessBoard {
         }
         if (moveList.size() != 0){
             int randI = (int) (Math.random() * moveList.size());
-            figuresBlack.get(randNum).y = moveList.get(randI).y;
-            figuresBlack.get(randNum).x = moveList.get(randI).x;
+            figuresBlack.get(randNum).step(moveList.get(randI));
         }
 
         for (int i = 0; i < figuresBlack.size(); i++){
@@ -179,13 +179,15 @@ public class ChessBoard {
                 }
             }
         }
-
-        for (Figure figure : figuresWhite){
-            chessTiles[figure.x][figure.y].drawFigure(g, figure);
+        if (figuresWhite.size() != 0){
+            for (Figure figure : figuresWhite){
+                chessTiles[figure.x][figure.y].drawFigure(g, figure);
+            }
         }
+
         if (figuresBlack.size() != 0)
-        for (Figure figure : figuresBlack){
-            chessTiles[figure.x][figure.y].drawFigure(g, figure);
+            for (Figure figure : figuresBlack){
+                chessTiles[figure.x][figure.y].drawFigure(g, figure);
         }
     }
 

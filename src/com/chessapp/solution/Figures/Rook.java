@@ -19,6 +19,7 @@ public class Rook extends Figure {
     public Rook(ChessColor chessColor) {
         color = chessColor;
         weight = 5;
+        attackWeight = weight;
     }
 
     @Override
@@ -87,6 +88,19 @@ public class Rook extends Figure {
 
         }
         g.drawImage(image, x , y , null);
+    }
+
+    @Override
+    public void step(ChessPosition chessPosition) {
+        savePos = new ChessPosition(x, y);
+        x = chessPosition.x;
+        y = chessPosition.y;
+
+    }
+
+    @Override
+    public void undo() {
+        step(savePos);
     }
 
 }

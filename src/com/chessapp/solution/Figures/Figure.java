@@ -17,10 +17,15 @@ public abstract class Figure {
     public ChessColor color;
     protected Image image;
     public int weight;
+    public int attackWeight ;
+    ChessPosition savePos;
 
     public abstract List<ChessPosition> move(ChessBoard chessBoard);
 
     public abstract void draw(Graphics2D g, int x, int y);
+
+    public abstract void step(ChessPosition chessPosition);
+    public abstract void undo();
 
 
 }

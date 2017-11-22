@@ -19,6 +19,7 @@ public class Knight extends Figure {
     public Knight(ChessColor chessColor) {
         color = chessColor;
         weight = 3;
+        attackWeight = weight;
     }
 
     @Override
@@ -118,5 +119,18 @@ public class Knight extends Figure {
 
         }
         g.drawImage(image, x , y , null);
+    }
+
+    @Override
+    public void step(ChessPosition chessPosition) {
+        savePos = new ChessPosition(x, y);
+        x = chessPosition.x;
+        y = chessPosition.y;
+
+    }
+
+    @Override
+    public void undo() {
+        step(savePos);
     }
 }

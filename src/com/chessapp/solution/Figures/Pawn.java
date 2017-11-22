@@ -22,6 +22,7 @@ public class Pawn extends Figure {
         color = chessColor;
         firstStep = true;
         weight = 1;
+        attackWeight = weight;
 
     }
 
@@ -42,15 +43,19 @@ public class Pawn extends Figure {
          for (Figure figure : allFig) {
              if ((y - 1 == figure.y && x == figure.x) || y - 1 < 0){
                  moveList.remove(y1);
+                 attackWeight = weight;
              }
              if ((y - 2 == figure.y && x == figure.x) || (y - 2 < 0) || !firstStep) {
                  moveList.remove(y2);
+                 attackWeight = weight;
              }
              if (figure.color != color && y - 1 == figure.y && x + 1 == figure.x){
                  moveList.add(new ChessPosition(x + 1, y - 1));
+                 attackWeight = 5;
              }
              if (figure.color != color && y - 1 == figure.y && x - 1 == figure.x){
                  moveList.add(new ChessPosition(x - 1, y - 1));
+                 attackWeight = 5;
              }
          }
      }
@@ -97,23 +102,17 @@ public class Pawn extends Figure {
         g.drawImage(image, x , y , null);
     }
 
-    /*@Override
-    public void update() {
-        int randYB = 1 +(int) (Math.random() * 2);
-        int randYW = 1 +(int) (Math.random() * 3);
+    @Override
+    public void step(ChessPosition chessPosition) {
+        savePos = new ChessPosition(x, y);
+        x = chessPosition.x;
+        y = chessPosition.y;
 
-        if (color == color.BLACK){
-          //  y += randYB;
-        }
-        if (color == color.WHITE){
-           // y -= randYW;
-        }
-        if (y >= 7){
-            y = 7;
-        }
-        if (y <= 0){
-            y = 0;
-        }
-    }*/
+    }
+
+    @Override
+    public void undo() {
+        step(savePos);
+    }
 
 }

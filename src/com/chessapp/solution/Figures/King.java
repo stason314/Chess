@@ -19,6 +19,7 @@ public class King extends Figure {
     public King(ChessColor chessColor) {
         color = chessColor;
         weight = 200;
+        attackWeight = weight;
     }
 
     @Override
@@ -116,5 +117,18 @@ public class King extends Figure {
 
         }
         g.drawImage(image, x , y , null);
+    }
+
+    @Override
+    public void step(ChessPosition chessPosition) {
+        savePos = new ChessPosition(x, y);
+        x = chessPosition.x;
+        y = chessPosition.y;
+
+    }
+
+    @Override
+    public void undo() {
+        step(savePos);
     }
 }
