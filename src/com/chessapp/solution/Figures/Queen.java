@@ -27,7 +27,7 @@ public class Queen extends Figure {
         List<ChessPosition> moveList = new ArrayList<>();
 
 
-        for (int countY = y - 1; countY > 0; countY--){
+        for (int countY = y - 1; countY >= 0; countY--){
             if (chessBoard.chessTiles[x][countY].figure == null){
                 moveList.add(new ChessPosition(x, countY));
             }
@@ -49,7 +49,7 @@ public class Queen extends Figure {
                 break;
             }
         }
-        for (int countX = x - 1; countX > 0; countX--){
+        for (int countX = x - 1; countX >= 0; countX--){
             if (chessBoard.chessTiles[countX][y].figure == null){
                 moveList.add(new ChessPosition(countX, y));
             }

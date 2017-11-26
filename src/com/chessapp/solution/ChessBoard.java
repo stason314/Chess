@@ -20,11 +20,13 @@ public class ChessBoard {
     public List<Figure> figuresBlack;
     public List<ChessPosition> moveList;
     AIalpha aIalpha;
+    ChessTile[][] saveState;
 
 
     public ChessBoard() {
         moveList = new ArrayList<>();
         chessTiles = new ChessTile[8][8];
+        saveState = new ChessTile[8][8];
         figuresWhite = new ArrayList<>();
         figuresBlack = new ArrayList<>();
         for (int i = 0; i < 8; i++){
@@ -34,6 +36,7 @@ public class ChessBoard {
                 chessTiles[i][j].yReal = j * 50;
                 chessTiles[i][j].x = i;
                 chessTiles[i][j].y = j;
+                saveState[i][j] = chessTiles[i][j];
             }
         }
         //Pawns
@@ -100,42 +103,105 @@ public class ChessBoard {
         figuresWhite.get(15).y = 7;
 
         aIalpha = new AIalpha(this);
+        stepsUp();
 
     }
 
-    public void updateWhite(){
 
-        aIalpha.alphaBetaPruning(ChessColor.WHITE);
-        aIalpha.figure.step(aIalpha.bestMove);
-       /* int randNum = (int) (Math.random() * figuresWhite.size());
-        moveList = figuresWhite.get(randNum).move(this);
-        while (moveList.size() == 0){
-            randNum = (int) (Math.random() * figuresWhite.size());
-            moveList = figuresWhite.get(randNum).move(this);
+    public void stepsUp(){
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                if (chessTiles[i][j].figure != null)
+                    saveState[i][j].figure = chessTiles[i][j].figure;
+            }
         }
-        if (moveList.size() != 0){
-            int randI = (int) (Math.random() * moveList.size());
-            figuresWhite.get(randNum).step(moveList.get(randI));
-        }*/
-
         for (int i = 0; i < figuresWhite.size(); i++){
-            //moveList.addAll(figuresWhite.get(i).move(this));
+//moveList.addAll(figuresWhite.get(i).move(this));
             for (int j = 0; j < figuresBlack.size(); j++){
                 if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
                     figuresBlack.remove(j);
                 }
             }
         }
+
+        List<Figure> allFig = new ArrayList<>();
+        allFig.addAll(figuresBlack);
+        allFig.addAll(figuresWhite);
+
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                if ((i + j) % 2 == 0) {
+                    chessTiles[i][j].figure = null;
+                }
+                else {
+                    chessTiles[i][j].figure = null;
+                }
+            }
+        }
+        for (Figure figure:allFig){
+            chessTiles[figure.x][figure.y].figure = figure;
+        }
+    }
+
+    public void undo(){
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                if (chessTiles[i][j].figure != saveState[i][j].figure){
+                    chessTiles[i][j].figure = saveState[i][j].figure;
+                    if (chessTiles[i][j].figure.color == ChessColor.WHITE){
+                        figuresWhite.add(chessTiles[i][j].figure);
+                    }
+                    if (chessTiles[i][j].figure.color == ChessColor.BLACK){
+                        figuresBlack.add(chessTiles[i][j].figure);
+                    }
+                }
+            }
+        }
+        // Graphics2D g = new Graphics();
+        // draw;
+
+    }
+
+    public void updateWhite(){
+
+        stepsUp();
+
+        Figure figure;
+        figure = aIalpha.alphaBetaPruning(ChessColor.WHITE);
+
+        System.out.println(figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
+// aIalpha.figure.step(aIalpha.bestMove);
+/* int randNum = (int) (Math.random() * figuresWhite.size());
+ moveList = figuresWhite.get(randNum).move(this);
+ while (moveList.size() == 0){
+     randNum = (int) (Math.random() * figuresWhite.size());
+     moveList = figuresWhite.get(randNum).move(this);
+ }
+ if (moveList.size() != 0){
+     int randI = (int) (Math.random() * moveList.size());
+     figuresWhite.get(randNum).step(moveList.get(randI));
+ }*/
+/* for (int i = 0; i < figuresWhite.size(); i++){
+     //moveList.addAll(figuresWhite.get(i).move(this));
+     for (int j = 0; j < figuresBlack.size(); j++){
+         if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
+             figuresBlack.remove(j);
+         }
+     }
+ }*/
+
         for (ChessPosition chessPosition : moveList){
             System.out.println(chessPosition.x + " : " + chessPosition.y);
         }
         System.out.println("---------------------------------");
-        moveList.clear();
+        stepsUp();
     }
 
     public void updateBlack(){
 
-        int randNum = (int) (Math.random() * figuresBlack.size()); 
+        stepsUp();
+
+        int randNum = (int) (Math.random() * figuresBlack.size());
 
         moveList = figuresBlack.get(randNum).move(this);
         while (moveList.size() == 0){
@@ -146,7 +212,6 @@ public class ChessBoard {
             int randI = (int) (Math.random() * moveList.size());
             figuresBlack.get(randNum).step(moveList.get(randI));
         }
-
         for (int i = 0; i < figuresBlack.size(); i++){
             for (int j = 0; j < figuresWhite.size(); j++){
                 if (figuresBlack.get(i).y == figuresWhite.get(j).y && figuresBlack.get(i).x == figuresWhite.get(j).x){
@@ -154,12 +219,13 @@ public class ChessBoard {
                 }
             }
         }
-        for (ChessPosition chessPosition : moveList){
 
+        stepsUp();
+
+        for (ChessPosition chessPosition : moveList){
             System.out.println(chessPosition.x + " : " + chessPosition.y);
         }
         System.out.println("---------------------------------");
-       // moveList.clear();
     }
 
 
@@ -184,6 +250,7 @@ public class ChessBoard {
                 chessTiles[figure.x][figure.y].drawFigure(g, figure);
             }
         }
+        System.out.println(figuresBlack.size());
 
         if (figuresBlack.size() != 0)
             for (Figure figure : figuresBlack){
