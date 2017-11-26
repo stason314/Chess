@@ -36,7 +36,7 @@ public class AIalpha {
 
         Figure bestFi = null;
         int bestValue = -999;
-        int boardValue = 0;
+        int boardValue;
 
         for (Figure fW: newChessBoard.figuresWhite){
             if (fW.move(newChessBoard).size() != 0){
@@ -76,8 +76,8 @@ public class AIalpha {
         for (Figure f: chessBoard.figuresWhite){
             if (f.x == bestFi.x && f.y == bestFi.y){
                 System.out.println(f.x + " " + f.y);
-                // f.step(bestMove);
-                //chessBoard.stepsUp();
+                 f.step(bestMove);
+                chessBoard.stepsUp();
             }
         }
         bestFi.step(bestMove);
