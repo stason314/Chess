@@ -29,42 +29,60 @@ public class AIalpha {
 
     }
 
-    public int alphaBetaPruning(int depth, ChessColor chessColor){
-        newChessBoard = chessBoard;
+    public int minMax(int depth, ChessBoard newChessBoard,ChessColor chessColor){
         if (depth == 0){
             return evaluateBoard(newChessBoard);
         }
         List<ChessPosition> moveList = new ArrayList<>();
+        int bestValue = 0;
 
         if (chessColor == ChessColor.WHITE){
+            bestValue = -999;
+            int boardValue;
 
-        }
-
-
-        int bestValue = -999;
-        int boardValue;
-
-
-        for (Figure fW: newChessBoard.figuresWhite) {
-            moveList.addAll(fW.move(newChessBoard));
-        }
-        for (ChessPosition cPos : moveList) {
-            newChessBoard = new ChessBoard();
-            combine(newChessBoard);
-            newChessBoard.step(cPos);
-            boardValue = evaluateBoard(newChessBoard);
-            cPos.figure.undo();
-            newChessBoard.undo(); // return removed figures
-            if (boardValue > bestValue){
-                bestValue = boardValue;
-                bestMove = cPos;
+            for (Figure fW: newChessBoard.figuresWhite) {
+                moveList.addAll(fW.move(newChessBoard));
+            }
+            for (ChessPosition cPos : moveList) {
+                newChessBoard = new ChessBoard();
+                combine(newChessBoard);
+                newChessBoard.step(cPos);
+                boardValue = evaluateBoard(newChessBoard);
+                cPos.figure.undo();
+                newChessBoard.undo(); // return removed figures
+                if (boardValue > bestValue){
+                    bestValue = boardValue;
+                    bestMove = cPos;
+                }
             }
         }
 
-        newChessBoard.stepsUp();
+        if (chessColor == ChessColor.BLACK){
+            bestValue = 999;
+            int boardValue;
+
+            for (Figure fW: newChessBoard.figuresBlack) {
+                moveList.addAll(fW.move(newChessBoard));
+            }
+            for (ChessPosition cPos : moveList) {
+                newChessBoard = new ChessBoard();
+                combine(newChessBoard);
+                newChessBoard.step(cPos);
+                boardValue = -evaluateBoard(newChessBoard);
+                cPos.figure.undo();
+                newChessBoard.undo(); // return removed figures
+                if (boardValue < bestValue) {
+                    bestValue = boardValue;
+                    bestMove = cPos;
+                }
+            }
+        }
+
+            //newChessBoard.stepsUp();
 
 
-        return 0;
+
+        return bestValue;
     }
 
     private int evaluateBoard(ChessBoard chessBoard){

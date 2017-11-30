@@ -110,19 +110,12 @@ public class ChessBoard {
 
     public void stepsUp(){
 
-        for (int i = 0; i < figuresWhite.size(); i++){
-//moveList.addAll(figuresWhite.get(i).move(this));
-            for (int j = 0; j < figuresBlack.size(); j++){
-                if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
-                    saveFig = figuresBlack.get(j);
-                    figuresBlack.remove(j);
-                }
-            }
-        }
+
 
         List<Figure> allFig = new ArrayList<>();
         allFig.addAll(figuresBlack);
         allFig.addAll(figuresWhite);
+
 
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++) {
@@ -139,62 +132,45 @@ public class ChessBoard {
         stepsUp();
     }
     public void undo(){
-        if (saveFig != null)
-        figuresBlack.add(saveFig);
+        if (saveFig != null && saveFig.color == ChessColor.BLACK)
+            figuresBlack.add(saveFig);
+        if (saveFig != null && saveFig.color == ChessColor.WHITE)
+            figuresWhite.add(saveFig);
     }
 
     public void updateWhite(){
 
         //stepsUp();
-        aIalpha.alphaBetaPruning(6, ChessColor.WHITE);
+        aIalpha.minMax(6, this,ChessColor.WHITE);
 
         step(aIalpha.bestMove);
 
         System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
-// aIalpha.figure.step(aIalpha.bestMove);
-/* int randNum = (int) (Math.random() * figuresWhite.size());
- moveList = figuresWhite.get(randNum).move(this);
- while (moveList.size() == 0){
-     randNum = (int) (Math.random() * figuresWhite.size());
-     moveList = figuresWhite.get(randNum).move(this);
- }
- if (moveList.size() != 0){
-     int randI = (int) (Math.random() * moveList.size());
-     figuresWhite.get(randNum).step(moveList.get(randI));
- }*/
-/* for (int i = 0; i < figuresWhite.size(); i++){
-     //moveList.addAll(figuresWhite.get(i).move(this));
-     for (int j = 0; j < figuresBlack.size(); j++){
-         if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
-             figuresBlack.remove(j);
-         }
-     }
- }*/
 
-        for (ChessPosition chessPosition : moveList){
-            System.out.println(chessPosition.x + " : " + chessPosition.y);
+        for (int i = 0; i < figuresWhite.size(); i++){
+//moveList.addAll(figuresWhite.get(i).move(this));
+            for (int j = 0; j < figuresBlack.size(); j++){
+                if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
+                    saveFig = figuresBlack.get(j);
+                    figuresBlack.remove(j);
+                }
+            }
         }
-        System.out.println("---------------------------------");
+
         stepsUp();
     }
 
     public void updateBlack(){
+        aIalpha.minMax(6, this, ChessColor.BLACK);
+
+        step(aIalpha.bestMove);
+        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
 
-        int randNum = (int) (Math.random() * figuresBlack.size());
-
-        moveList = figuresBlack.get(randNum).move(this);
-        while (moveList.size() == 0){
-            randNum = (int) (Math.random() * figuresBlack.size());
-            moveList = figuresBlack.get(randNum).move(this);
-        }
-        if (moveList.size() != 0){
-            int randI = (int) (Math.random() * moveList.size());
-            figuresBlack.get(randNum).step(moveList.get(randI));
-        }
         for (int i = 0; i < figuresBlack.size(); i++){
             for (int j = 0; j < figuresWhite.size(); j++){
                 if (figuresBlack.get(i).y == figuresWhite.get(j).y && figuresBlack.get(i).x == figuresWhite.get(j).x){
+                    saveFig = figuresWhite.get(j);
                     figuresWhite.remove(j);
                 }
             }
@@ -202,10 +178,6 @@ public class ChessBoard {
 
         stepsUp();
 
-        for (ChessPosition chessPosition : moveList){
-            System.out.println(chessPosition.x + " : " + chessPosition.y);
-        }
-        System.out.println("---------------------------------");
     }
 
 
@@ -230,7 +202,6 @@ public class ChessBoard {
                 chessTiles[figure.x][figure.y].drawFigure(g, figure);
             }
         }
-        System.out.println(figuresBlack.size());
 
         if (figuresBlack.size() != 0)
             for (Figure figure : figuresBlack){
