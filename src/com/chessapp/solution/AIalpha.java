@@ -29,11 +29,18 @@ public class AIalpha {
 
     }
 
-    public ChessPosition alphaBetaPruning(ChessColor chessColor){
+    public int alphaBetaPruning(int depth, ChessColor chessColor){
         newChessBoard = chessBoard;
-        //newChessBoard.chessTiles = chessBoard.chessTiles;
-
+        if (depth == 0){
+            return evaluateBoard(newChessBoard);
+        }
         List<ChessPosition> moveList = new ArrayList<>();
+
+        if (chessColor == ChessColor.WHITE){
+
+        }
+
+
         int bestValue = -999;
         int boardValue;
 
@@ -47,34 +54,17 @@ public class AIalpha {
             newChessBoard.step(cPos);
             boardValue = evaluateBoard(newChessBoard);
             cPos.figure.undo();
+            newChessBoard.undo(); // return removed figures
             if (boardValue > bestValue){
                 bestValue = boardValue;
                 bestMove = cPos;
-            }else if (boardValue == 0){
-                       /* List<ChessPosition> moveList;
-                        int randNum = (int) (Math.random() * newChessBoard.figuresWhite.size());
-                        moveList = newChessBoard.figuresWhite.get(randNum).move(newChessBoard);
-                        while (moveList.size() == 0){
-                            randNum = (int) (Math.random() * newChessBoard.figuresWhite.size());
-                            moveList = newChessBoard.figuresWhite.get(randNum).move(newChessBoard);
-                        }
-                        if (moveList.size() != 0){
-                            int randI = (int) (Math.random() * moveList.size());
-                            bestFi =  newChessBoard.figuresWhite.get(randNum);
-                            bestMove = moveList.get(randI);
-                        }
-                        for (ChessPosition chessPosition : moveList){
-
-                            System.out.println(chessPosition.x + " : " + chessPosition.y);
-                        }
-                        break;*/
             }
         }
 
         newChessBoard.stepsUp();
 
 
-        return bestMove;
+        return 0;
     }
 
     private int evaluateBoard(ChessBoard chessBoard){

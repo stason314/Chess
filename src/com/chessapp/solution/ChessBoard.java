@@ -17,7 +17,7 @@ public class ChessBoard {
 
     public List<Figure> figuresWhite;
     public List<Figure> figuresBlack;
-    public List<Figure> saveFigs;
+    public Figure saveFig;
     public List<ChessPosition> moveList;
     AIalpha aIalpha;
     ChessTile[][] saveState;
@@ -80,7 +80,7 @@ public class ChessBoard {
         figuresBlack.get(12).y = 0;
         figuresBlack.add(new Bishop(ChessColor.BLACK));
         figuresBlack.get(13).x = 5;
-        figuresBlack.get(13).y = 5; //TODO FIX THIS
+        figuresBlack.get(13).y = 0;
         figuresWhite.add(new Bishop(ChessColor.WHITE));
         figuresWhite.get(12).x = 2;
         figuresWhite.get(12).y = 7;
@@ -114,6 +114,7 @@ public class ChessBoard {
 //moveList.addAll(figuresWhite.get(i).move(this));
             for (int j = 0; j < figuresBlack.size(); j++){
                 if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
+                    saveFig = figuresBlack.get(j);
                     figuresBlack.remove(j);
                 }
             }
@@ -137,12 +138,17 @@ public class ChessBoard {
         chessPosition.figure.step(chessPosition);
         stepsUp();
     }
+    public void undo(){
+        if (saveFig != null)
+        figuresBlack.add(saveFig);
+    }
 
     public void updateWhite(){
 
         //stepsUp();
+        aIalpha.alphaBetaPruning(6, ChessColor.WHITE);
 
-        step(aIalpha.alphaBetaPruning(ChessColor.WHITE));
+        step(aIalpha.bestMove);
 
         System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 // aIalpha.figure.step(aIalpha.bestMove);

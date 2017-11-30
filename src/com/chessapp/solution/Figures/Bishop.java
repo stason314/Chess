@@ -38,7 +38,6 @@ public class Bishop extends Figure {
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
                     moveList.add(new ChessPosition(countXm, countY, this));
                 }
-
                 countXm--;
             }
 
