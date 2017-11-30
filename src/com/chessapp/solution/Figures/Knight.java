@@ -29,15 +29,15 @@ public class Knight extends Figure {
         allFig.addAll(chessBoard.figuresBlack);
         allFig.addAll(chessBoard.figuresWhite);
 
-        ChessPosition y1 = new ChessPosition(x + 1, y - 2);
-        ChessPosition y2 = new ChessPosition(x - 1, y - 2);
-        ChessPosition y3 = new ChessPosition(x + 1, y + 2);
-        ChessPosition y4 = new ChessPosition(x - 1, y + 2);
+        ChessPosition y1 = new ChessPosition(x + 1, y - 2, this);
+        ChessPosition y2 = new ChessPosition(x - 1, y - 2, this);
+        ChessPosition y3 = new ChessPosition(x + 1, y + 2, this);
+        ChessPosition y4 = new ChessPosition(x - 1, y + 2, this);
 
-        ChessPosition x1 = new ChessPosition(x + 2, y + 1);
-        ChessPosition x2 = new ChessPosition(x + 2, y - 1);
-        ChessPosition x3 = new ChessPosition(x - 2, y + 1);
-        ChessPosition x4 = new ChessPosition(x - 2, y - 1);
+        ChessPosition x1 = new ChessPosition(x + 2, y + 1, this);
+        ChessPosition x2 = new ChessPosition(x + 2, y - 1, this);
+        ChessPosition x3 = new ChessPosition(x - 2, y + 1, this);
+        ChessPosition x4 = new ChessPosition(x - 2, y - 1, this);
 
         moveList.add(y1);
         moveList.add(y2);
@@ -123,7 +123,7 @@ public class Knight extends Figure {
 
     @Override
     public void step(ChessPosition chessPosition) {
-        savePos = new ChessPosition(x, y);
+        savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
 

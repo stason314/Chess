@@ -7,7 +7,6 @@ import com.chessapp.solution.enums.ChessColor;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Admin on 19.10.2017.
@@ -18,6 +17,7 @@ public class ChessBoard {
 
     public List<Figure> figuresWhite;
     public List<Figure> figuresBlack;
+    public List<Figure> saveFigs;
     public List<ChessPosition> moveList;
     AIalpha aIalpha;
     ChessTile[][] saveState;
@@ -26,7 +26,7 @@ public class ChessBoard {
     public ChessBoard() {
         moveList = new ArrayList<>();
         chessTiles = new ChessTile[8][8];
-        saveState = new ChessTile[8][8];
+        saveState = new ChessTile[8][8]; //mmmmmm
         figuresWhite = new ArrayList<>();
         figuresBlack = new ArrayList<>();
         for (int i = 0; i < 8; i++){
@@ -80,7 +80,7 @@ public class ChessBoard {
         figuresBlack.get(12).y = 0;
         figuresBlack.add(new Bishop(ChessColor.BLACK));
         figuresBlack.get(13).x = 5;
-        figuresBlack.get(13).y = 0;
+        figuresBlack.get(13).y = 5; //TODO FIX THIS
         figuresWhite.add(new Bishop(ChessColor.WHITE));
         figuresWhite.get(12).x = 2;
         figuresWhite.get(12).y = 7;
@@ -103,18 +103,13 @@ public class ChessBoard {
         figuresWhite.get(15).y = 7;
 
         aIalpha = new AIalpha(this);
-        stepsUp();
+        //stepsUp();
 
     }
 
 
     public void stepsUp(){
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++) {
-                if (chessTiles[i][j].figure != null)
-                    saveState[i][j].figure = chessTiles[i][j].figure;
-            }
-        }
+
         for (int i = 0; i < figuresWhite.size(); i++){
 //moveList.addAll(figuresWhite.get(i).move(this));
             for (int j = 0; j < figuresBlack.size(); j++){
@@ -130,12 +125,7 @@ public class ChessBoard {
 
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++) {
-                if ((i + j) % 2 == 0) {
-                    chessTiles[i][j].figure = null;
-                }
-                else {
-                    chessTiles[i][j].figure = null;
-                }
+                chessTiles[i][j].figure = null;
             }
         }
         for (Figure figure:allFig){
@@ -143,33 +133,18 @@ public class ChessBoard {
         }
     }
 
-    public void undo(){
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++) {
-                if (chessTiles[i][j].figure != saveState[i][j].figure){
-                    chessTiles[i][j].figure = saveState[i][j].figure;
-                    if (chessTiles[i][j].figure.color == ChessColor.WHITE){
-                        figuresWhite.add(chessTiles[i][j].figure);
-                    }
-                    if (chessTiles[i][j].figure.color == ChessColor.BLACK){
-                        figuresBlack.add(chessTiles[i][j].figure);
-                    }
-                }
-            }
-        }
-        // Graphics2D g = new Graphics();
-        // draw;
-
+    public void step(ChessPosition chessPosition){
+        chessPosition.figure.step(chessPosition);
+        stepsUp();
     }
 
     public void updateWhite(){
 
-        stepsUp();
+        //stepsUp();
 
-        Figure figure;
-        figure = aIalpha.alphaBetaPruning(ChessColor.WHITE);
+        step(aIalpha.alphaBetaPruning(ChessColor.WHITE));
 
-        System.out.println(figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
+        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 // aIalpha.figure.step(aIalpha.bestMove);
 /* int randNum = (int) (Math.random() * figuresWhite.size());
  moveList = figuresWhite.get(randNum).move(this);
@@ -199,7 +174,6 @@ public class ChessBoard {
 
     public void updateBlack(){
 
-        stepsUp();
 
         int randNum = (int) (Math.random() * figuresBlack.size());
 

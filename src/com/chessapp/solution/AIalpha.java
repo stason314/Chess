@@ -29,29 +29,29 @@ public class AIalpha {
 
     }
 
-    public Figure alphaBetaPruning(ChessColor chessColor){
-        if (newChessBoard == null){
-            newChessBoard = chessBoard;
-        }
+    public ChessPosition alphaBetaPruning(ChessColor chessColor){
+        newChessBoard = chessBoard;
+        //newChessBoard.chessTiles = chessBoard.chessTiles;
 
-        Figure bestFi = null;
+        List<ChessPosition> moveList = new ArrayList<>();
         int bestValue = -999;
         int boardValue;
 
-        for (Figure fW: newChessBoard.figuresWhite){
-            if (fW.move(newChessBoard).size() != 0){
-                for (ChessPosition cPos: fW.move(newChessBoard)){
-                    fW.step(cPos);
-                    newChessBoard.stepsUp();
-                    boardValue = evaluateBoard(newChessBoard);
-                    fW.undo();
-                    newChessBoard.undo();
-                    if (boardValue > bestValue){
-                        bestValue = boardValue;
-                        bestFi = fW;
-                        bestMove = cPos;
-                    }else if (boardValue == 0){
-                        List<ChessPosition> moveList;
+
+        for (Figure fW: newChessBoard.figuresWhite) {
+            moveList.addAll(fW.move(newChessBoard));
+        }
+        for (ChessPosition cPos : moveList) {
+            newChessBoard = new ChessBoard();
+            combine(newChessBoard);
+            newChessBoard.step(cPos);
+            boardValue = evaluateBoard(newChessBoard);
+            cPos.figure.undo();
+            if (boardValue > bestValue){
+                bestValue = boardValue;
+                bestMove = cPos;
+            }else if (boardValue == 0){
+                       /* List<ChessPosition> moveList;
                         int randNum = (int) (Math.random() * newChessBoard.figuresWhite.size());
                         moveList = newChessBoard.figuresWhite.get(randNum).move(newChessBoard);
                         while (moveList.size() == 0){
@@ -67,26 +67,17 @@ public class AIalpha {
 
                             System.out.println(chessPosition.x + " : " + chessPosition.y);
                         }
-                        break;
-                    }
+                        break;*/
+            }
+        }
 
-                }
-            }
-        }
-        for (Figure f: chessBoard.figuresWhite){
-            if (f.x == bestFi.x && f.y == bestFi.y){
-                System.out.println(f.x + " " + f.y);
-                 f.step(bestMove);
-                chessBoard.stepsUp();
-            }
-        }
-        bestFi.step(bestMove);
         newChessBoard.stepsUp();
 
-        return bestFi;
+
+        return bestMove;
     }
 
-    public int evaluateBoard(ChessBoard chessBoard){
+    private int evaluateBoard(ChessBoard chessBoard){
         int summW = 0;
         int summB = 0;
         for (int i = 0; i < chessBoard.chessTiles.length; i++){
@@ -104,6 +95,15 @@ public class AIalpha {
 
         }
         return summW - summB;
+    }
+
+    private void combine(ChessBoard combinedBoard){
+        /**List<Figure> comAllFig = new ArrayList<>();
+        comAllFig.addAll(combinedBoard.figuresWhite);
+        comAllFig.addAll(combinedBoard.figuresBlack);
+        //for (Figure )*/
+        combinedBoard.figuresBlack = chessBoard.figuresBlack;
+        combinedBoard.figuresWhite = chessBoard.figuresWhite;
     }
 
 }

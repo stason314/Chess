@@ -31,12 +31,12 @@ public class Bishop extends Figure {
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
                     if (chessBoard.chessTiles[countXm][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXm, countY));
+                        moveList.add(new ChessPosition(countXm, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
-                    moveList.add(new ChessPosition(countXm, countY));
+                    moveList.add(new ChessPosition(countXm, countY, this));
                 }
 
                 countXm--;
@@ -49,12 +49,12 @@ public class Bishop extends Figure {
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
                     if (chessBoard.chessTiles[countXp][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXp, countY));
+                        moveList.add(new ChessPosition(countXp, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
-                    moveList.add(new ChessPosition(countXp, countY));
+                    moveList.add(new ChessPosition(countXp, countY, this));
                 }
                 countXp++;
             }
@@ -66,12 +66,12 @@ public class Bishop extends Figure {
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
                     if (chessBoard.chessTiles[countXm][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXm, countY));
+                        moveList.add(new ChessPosition(countXm, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
-                    moveList.add(new ChessPosition(countXm, countY));
+                    moveList.add(new ChessPosition(countXm, countY, this));
                 }
                 countXm--;
             }
@@ -82,12 +82,12 @@ public class Bishop extends Figure {
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
                     if (chessBoard.chessTiles[countXp][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXp, countY));
+                        moveList.add(new ChessPosition(countXp, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
-                    moveList.add(new ChessPosition(countXp, countY));
+                    moveList.add(new ChessPosition(countXp, countY, this));
                 }
 
                 countXp++;
@@ -114,7 +114,7 @@ public class Bishop extends Figure {
 
     @Override
     public void step(ChessPosition chessPosition) {
-        savePos = new ChessPosition(x, y);
+        savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
 

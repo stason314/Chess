@@ -34,8 +34,8 @@ public class Pawn extends Figure {
         allFig.addAll(chessBoard.figuresWhite);
 
      if (color == ChessColor.WHITE){
-         ChessPosition y1 = new ChessPosition(x, y - 1);
-         ChessPosition y2 = new ChessPosition(x, y - 2);
+         ChessPosition y1 = new ChessPosition(x, y - 1, this);
+         ChessPosition y2 = new ChessPosition(x, y - 2, this);
 
          moveList.add(y1);
          moveList.add(y2);
@@ -50,19 +50,19 @@ public class Pawn extends Figure {
                  attackWeight = weight;
              }
              if (figure.color != color && y - 1 == figure.y && x + 1 == figure.x){
-                 moveList.add(new ChessPosition(x + 1, y - 1));
+                 moveList.add(new ChessPosition(x + 1, y - 1, this));
                  attackWeight = 5;
              }
              if (figure.color != color && y - 1 == figure.y && x - 1 == figure.x){
-                 moveList.add(new ChessPosition(x - 1, y - 1));
+                 moveList.add(new ChessPosition(x - 1, y - 1, this));
                  attackWeight = 5;
              }
          }
      }
 
         if (color == ChessColor.BLACK) {
-            ChessPosition y1 = new ChessPosition(x, y + 1);
-            ChessPosition y2 = new ChessPosition(x, y + 2);
+            ChessPosition y1 = new ChessPosition(x, y + 1, this);
+            ChessPosition y2 = new ChessPosition(x, y + 2, this);
 
             moveList.add(y1);
             moveList.add(y2);
@@ -75,10 +75,10 @@ public class Pawn extends Figure {
                     moveList.remove(y2);
                 }
                 if (figure.color != color && y + 1 == figure.y && x + 1 == figure.x){
-                    moveList.add(new ChessPosition(x + 1, y + 1));
+                    moveList.add(new ChessPosition(x + 1, y + 1, this));
                 }
                 if (figure.color != color && y + 1 == figure.y && x - 1 == figure.x){
-                    moveList.add(new ChessPosition(x - 1, y + 1));
+                    moveList.add(new ChessPosition(x - 1, y + 1, this));
                 }
             }
         }
@@ -104,7 +104,7 @@ public class Pawn extends Figure {
 
     @Override
     public void step(ChessPosition chessPosition) {
-        savePos = new ChessPosition(x, y);
+        savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
 

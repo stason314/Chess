@@ -30,14 +30,14 @@ public class King extends Figure {
         allFig.addAll(chessBoard.figuresWhite);
 
 
-        ChessPosition y1 = new ChessPosition(x, y - 1);
-        ChessPosition y2 = new ChessPosition(x, y + 1);
-        ChessPosition x1 = new ChessPosition(x - 1, y);
-        ChessPosition x2 = new ChessPosition(x + 1, y);
-        ChessPosition xy1 = new ChessPosition(x - 1, y - 1);
-        ChessPosition xy2 = new ChessPosition(x + 1, y + 1);
-        ChessPosition xy3 = new ChessPosition(x - 1, y + 1);
-        ChessPosition xy4 = new ChessPosition(x + 1, y - 1);
+        ChessPosition y1 = new ChessPosition(x, y - 1, this);
+        ChessPosition y2 = new ChessPosition(x, y + 1, this);
+        ChessPosition x1 = new ChessPosition(x - 1, y, this);
+        ChessPosition x2 = new ChessPosition(x + 1, y, this);
+        ChessPosition xy1 = new ChessPosition(x - 1, y - 1, this);
+        ChessPosition xy2 = new ChessPosition(x + 1, y + 1, this);
+        ChessPosition xy3 = new ChessPosition(x - 1, y + 1, this);
+        ChessPosition xy4 = new ChessPosition(x + 1, y - 1, this);
 
         moveList.add(y1);
         moveList.add(y2);
@@ -121,7 +121,7 @@ public class King extends Figure {
 
     @Override
     public void step(ChessPosition chessPosition) {
-        savePos = new ChessPosition(x, y);
+        savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
 

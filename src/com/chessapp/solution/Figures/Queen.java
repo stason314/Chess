@@ -29,44 +29,44 @@ public class Queen extends Figure {
 
         for (int countY = y - 1; countY >= 0; countY--){
             if (chessBoard.chessTiles[x][countY].figure == null){
-                moveList.add(new ChessPosition(x, countY));
+                moveList.add(new ChessPosition(x, countY, this));
             }
             if (chessBoard.chessTiles[x][countY].figure != null){
                 if (chessBoard.chessTiles[x][countY].figure.color != color){
-                    moveList.add(new ChessPosition(x, countY));
+                    moveList.add(new ChessPosition(x, countY, this));
                 }
                 break;
             }
         }
         for (int countY = y + 1; countY < 8; countY++){
             if (chessBoard.chessTiles[x][countY].figure == null){
-                moveList.add(new ChessPosition(x, countY));
+                moveList.add(new ChessPosition(x, countY, this));
             }
             if (chessBoard.chessTiles[x][countY].figure != null){
                 if (chessBoard.chessTiles[x][countY].figure.color != color){
-                    moveList.add(new ChessPosition(x, countY));
+                    moveList.add(new ChessPosition(x, countY, this));
                 }
                 break;
             }
         }
         for (int countX = x - 1; countX >= 0; countX--){
             if (chessBoard.chessTiles[countX][y].figure == null){
-                moveList.add(new ChessPosition(countX, y));
+                moveList.add(new ChessPosition(countX, y, this));
             }
             if (chessBoard.chessTiles[countX][y].figure != null){
                 if (chessBoard.chessTiles[countX][y].figure.color != color){
-                    moveList.add(new ChessPosition(countX, y));
+                    moveList.add(new ChessPosition(countX, y, this));
                 }
                 break;
             }
         }
         for (int countX = x + 1; countX < 8; countX++){
             if (chessBoard.chessTiles[countX][y].figure == null){
-                moveList.add(new ChessPosition(countX, y));
+                moveList.add(new ChessPosition(countX, y, this));
             }
             if (chessBoard.chessTiles[countX][y].figure != null){
                 if (chessBoard.chessTiles[countX][y].figure.color != color){
-                    moveList.add(new ChessPosition(countX, y));
+                    moveList.add(new ChessPosition(countX, y, this));
                 }
                 break;
             }
@@ -78,12 +78,12 @@ public class Queen extends Figure {
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
                     if (chessBoard.chessTiles[countXm][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXm, countY));
+                        moveList.add(new ChessPosition(countXm, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
-                    moveList.add(new ChessPosition(countXm, countY));
+                    moveList.add(new ChessPosition(countXm, countY, this));
                 }
 
                 countXm--;
@@ -96,12 +96,12 @@ public class Queen extends Figure {
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
                     if (chessBoard.chessTiles[countXp][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXp, countY));
+                        moveList.add(new ChessPosition(countXp, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
-                    moveList.add(new ChessPosition(countXp, countY));
+                    moveList.add(new ChessPosition(countXp, countY, this));
                 }
                 countXp++;
             }
@@ -113,12 +113,12 @@ public class Queen extends Figure {
             if (countXm >= 0){
                 if (chessBoard.chessTiles[countXm][countY].figure != null){
                     if (chessBoard.chessTiles[countXm][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXm, countY));
+                        moveList.add(new ChessPosition(countXm, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXm][countY].figure == null){
-                    moveList.add(new ChessPosition(countXm, countY));
+                    moveList.add(new ChessPosition(countXm, countY, this));
                 }
                 countXm--;
             }
@@ -129,12 +129,12 @@ public class Queen extends Figure {
             if (countXp < 8){
                 if (chessBoard.chessTiles[countXp][countY].figure != null){
                     if (chessBoard.chessTiles[countXp][countY].figure.color != color){
-                        moveList.add(new ChessPosition(countXp, countY));
+                        moveList.add(new ChessPosition(countXp, countY, this));
                     }
                     break;
                 }
                 if (chessBoard.chessTiles[countXp][countY].figure == null){
-                    moveList.add(new ChessPosition(countXp, countY));
+                    moveList.add(new ChessPosition(countXp, countY, this));
                 }
 
                 countXp++;
@@ -161,7 +161,7 @@ public class Queen extends Figure {
 
     @Override
     public void step(ChessPosition chessPosition) {
-        savePos = new ChessPosition(x, y);
+        savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
 
