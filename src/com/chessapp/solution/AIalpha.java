@@ -10,7 +10,7 @@ import java.util.List;
 
  Created by Stanislav on 22.11.2017.
  */
-public class AIalpha {
+public class AIalpha implements Runnable{
 
     private int alpha;
     private int beta;
@@ -47,7 +47,7 @@ public class AIalpha {
                 newChessBoard = new ChessBoard();
                 combine(newChessBoard);
                 newChessBoard.step(cPos);
-                boardValue = evaluateBoard(newChessBoard);
+                boardValue = minMax(depth - 1, newChessBoard, ChessColor.BLACK);
                 cPos.figure.undo();
                 newChessBoard.undo(); // return removed figures
                 if (boardValue > bestValue){
@@ -68,7 +68,7 @@ public class AIalpha {
                 newChessBoard = new ChessBoard();
                 combine(newChessBoard);
                 newChessBoard.step(cPos);
-                boardValue = -evaluateBoard(newChessBoard);
+                boardValue = -minMax(depth - 1, newChessBoard, ChessColor.WHITE);
                 cPos.figure.undo();
                 newChessBoard.undo(); // return removed figures
                 if (boardValue < bestValue) {
@@ -77,10 +77,6 @@ public class AIalpha {
                 }
             }
         }
-
-            //newChessBoard.stepsUp();
-
-
 
         return bestValue;
     }
@@ -114,4 +110,8 @@ public class AIalpha {
         combinedBoard.figuresWhite = chessBoard.figuresWhite;
     }
 
+    @Override
+    public void run() {
+
+    }
 }
