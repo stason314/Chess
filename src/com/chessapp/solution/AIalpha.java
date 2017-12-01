@@ -16,8 +16,6 @@ public class AIalpha implements Runnable{
     private int beta;
     private int depth;
     private ChessBoard chessBoard;
-    private double coastFun, max = 0, min = 0;
-    private double whiteCF = 0, blackCF = 0;
 
     public Figure figure;
     public ChessPosition bestMove;
@@ -31,33 +29,60 @@ public class AIalpha implements Runnable{
 
     public ChessPosition minMaxRoot(int depth, ChessBoard newChessBoard, ChessColor chessColor){
         List<ChessPosition> moveList = new ArrayList<>();
-        int bestValue = -999;
+        int bestValue;
         int boardValue;
         ChessPosition bestMoveFounded = null;
 
+        if (chessColor == ChessColor.WHITE){
+            bestValue = -9999;
 
-        for (Figure fW: newChessBoard.figuresWhite) {
-            moveList.addAll(fW.move(newChessBoard));
-        }
-        for (ChessPosition cPos : moveList) {
-            newChessBoard = new ChessBoard();
-            combine(newChessBoard);
-            newChessBoard.step(cPos);
-            boardValue = minMax(depth - 1, newChessBoard, ChessColor.BLACK);
-            newChessBoard.undo();
-            if (boardValue > bestValue){
-                bestValue = boardValue;
-                bestMoveFounded = cPos;
+            for (Figure fW: newChessBoard.figuresWhite) {
+                moveList.addAll(fW.move(newChessBoard));
             }
+            for (ChessPosition cPos : moveList) {
+                newChessBoard = new ChessBoard();
+                combine(newChessBoard);
+                newChessBoard.step(cPos);
+                boardValue = minMax(depth - 1, newChessBoard, ChessColor.BLACK, -10000, 10000);
+                newChessBoard.undo();
+                System.out.println(boardValue);
+                if (boardValue > bestValue){
+                    bestValue = boardValue;
+                    bestMoveFounded = cPos;
+                }
 
+            }
+            System.out.println(bestValue + " WHITE");
+            return bestMoveFounded;
+        }
+        if (chessColor == ChessColor.BLACK){
+            bestValue = 9999;
+
+            for (Figure fW: newChessBoard.figuresBlack) {
+                moveList.addAll(fW.move(newChessBoard));
+            }
+            for (ChessPosition cPos : moveList) {
+                newChessBoard = new ChessBoard();
+                combine(newChessBoard);
+                newChessBoard.step(cPos);
+                boardValue = -minMax(depth - 1, newChessBoard, ChessColor.WHITE, -10000, 10000);
+                newChessBoard.undo();
+                System.out.println(boardValue);
+                if (boardValue < bestValue){
+                    bestValue = boardValue;
+                    bestMoveFounded = cPos;
+                }
+
+            }
+            System.out.println(bestValue + " BLACK");
+            return bestMoveFounded;
         }
 
-        System.out.println(bestValue);
 
-        return bestMoveFounded;
+        return null;
     }
 
-    public int minMax(int depth, ChessBoard newChessBoard,ChessColor chessColor){
+    private int minMax(int depth, ChessBoard newChessBoard,ChessColor chessColor, int alpha, int beta){
         if (depth == 0){
             return evaluateBoard(newChessBoard);
         }
@@ -68,7 +93,7 @@ public class AIalpha implements Runnable{
 
 
         if (chessColor == ChessColor.WHITE){
-            bestValue = -999;
+            bestValue = -9999;
 
             for (Figure fW: newChessBoard.figuresWhite) {
                 moveList.addAll(fW.move(newChessBoard));
@@ -77,15 +102,19 @@ public class AIalpha implements Runnable{
                 //newChessBoard = new ChessBoard();
                 //combine(newChessBoard);
                 newChessBoard.step(cPos);
-                bestValue = Math.max(bestValue, minMax(depth - 1, newChessBoard, ChessColor.BLACK));
+                bestValue = Math.max(bestValue, minMax(depth - 1, newChessBoard, ChessColor.BLACK, alpha, beta));
                 //cPos.figure.undo();
                 newChessBoard.undo(); // return removed figures
+                alpha = Math.max(alpha, bestValue);
+                if (beta <= alpha){
+                    return bestValue;
+                }
             }
             return bestValue;
         }
 
         if (chessColor == ChessColor.BLACK){
-            bestValue = 999;
+            bestValue = 9999;
             int boardValue;
             for (Figure fW: newChessBoard.figuresBlack) {
                 moveList.addAll(fW.move(newChessBoard));
@@ -94,11 +123,12 @@ public class AIalpha implements Runnable{
                newChessBoard = new ChessBoard();
                 combine(newChessBoard);
                 newChessBoard.step(cPos);
-                boardValue = minMax(depth - 1, newChessBoard, ChessColor.WHITE);
+                bestValue = Math.min(bestValue, -minMax(depth - 1, newChessBoard, ChessColor.WHITE, alpha, beta));
                 newChessBoard.undo(); // return removed figures
-                if (boardValue < bestValue) {
-                    bestValue = boardValue;
-                    bestMove = cPos;
+
+                beta = Math.min(beta, bestValue);
+                if (beta <= alpha){
+                    return  bestValue;
                 }
             }
             return bestValue;

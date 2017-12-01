@@ -105,6 +105,7 @@ public class ChessBoard {
         figuresWhite.get(15).x = 4;
         figuresWhite.get(15).y = 7;
 
+
         aIalpha = new AIalpha(this);
         //stepsUp();
 
@@ -160,7 +161,7 @@ public class ChessBoard {
         //stepsUp();
         //aIalpha.minMaxRoot(3, this,ChessColor.WHITE);
 
-        step(aIalpha.minMaxRoot(3, this,ChessColor.WHITE));
+        step(aIalpha.minMaxRoot(2, this,ChessColor.WHITE));
 
 //        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
@@ -176,10 +177,8 @@ public class ChessBoard {
     }
 
     public void updateBlack(){
-        aIalpha.minMax(1, this, ChessColor.BLACK);
-
-        step(aIalpha.bestMove);
-        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
+        step(aIalpha.minMaxRoot(1, this, ChessColor.BLACK));
+       // System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
 
         for (int i = 0; i < figuresBlack.size(); i++){

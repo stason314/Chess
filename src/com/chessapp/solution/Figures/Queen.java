@@ -18,7 +18,7 @@ public class Queen extends Figure {
 
     public Queen(ChessColor chessColor) {
         color = chessColor;
-        weight = 9;
+        weight = 90;
         attackWeight = weight;
     }
 
