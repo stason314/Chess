@@ -70,6 +70,9 @@ public class Rook extends Figure {
                 break;
             }
         }
+        for (ChessPosition chessPosition: moveList){
+          //  System.out.println(chessPosition.x + " ----" + chessPosition.y);
+        }
 
         return moveList;
     }

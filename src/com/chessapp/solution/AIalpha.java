@@ -21,7 +21,7 @@ public class AIalpha implements Runnable{
 
     public Figure figure;
     public ChessPosition bestMove;
-
+    int count = 0;
     ChessBoard newChessBoard;
 
     public AIalpha(ChessBoard chessBoard) {
@@ -29,53 +29,79 @@ public class AIalpha implements Runnable{
 
     }
 
+    public ChessPosition minMaxRoot(int depth, ChessBoard newChessBoard, ChessColor chessColor){
+        List<ChessPosition> moveList = new ArrayList<>();
+        int bestValue = -999;
+        int boardValue;
+        ChessPosition bestMoveFounded = null;
+
+
+        for (Figure fW: newChessBoard.figuresWhite) {
+            moveList.addAll(fW.move(newChessBoard));
+        }
+        for (ChessPosition cPos : moveList) {
+            newChessBoard = new ChessBoard();
+            combine(newChessBoard);
+            newChessBoard.step(cPos);
+            boardValue = minMax(depth - 1, newChessBoard, ChessColor.BLACK);
+            newChessBoard.undo();
+            if (boardValue > bestValue){
+                bestValue = boardValue;
+                bestMoveFounded = cPos;
+            }
+
+        }
+
+        System.out.println(bestValue);
+
+        return bestMoveFounded;
+    }
+
     public int minMax(int depth, ChessBoard newChessBoard,ChessColor chessColor){
         if (depth == 0){
             return evaluateBoard(newChessBoard);
         }
+
+        //System.out.println(count++);
         List<ChessPosition> moveList = new ArrayList<>();
         int bestValue = 0;
 
+
         if (chessColor == ChessColor.WHITE){
             bestValue = -999;
-            int boardValue;
 
             for (Figure fW: newChessBoard.figuresWhite) {
                 moveList.addAll(fW.move(newChessBoard));
             }
             for (ChessPosition cPos : moveList) {
-                newChessBoard = new ChessBoard();
-                combine(newChessBoard);
+                //newChessBoard = new ChessBoard();
+                //combine(newChessBoard);
                 newChessBoard.step(cPos);
-                boardValue = minMax(depth - 1, newChessBoard, ChessColor.BLACK);
-                cPos.figure.undo();
+                bestValue = Math.max(bestValue, minMax(depth - 1, newChessBoard, ChessColor.BLACK));
+                //cPos.figure.undo();
                 newChessBoard.undo(); // return removed figures
-                if (boardValue > bestValue){
-                    bestValue = boardValue;
-                    bestMove = cPos;
-                }
             }
+            return bestValue;
         }
 
         if (chessColor == ChessColor.BLACK){
             bestValue = 999;
             int boardValue;
-
             for (Figure fW: newChessBoard.figuresBlack) {
                 moveList.addAll(fW.move(newChessBoard));
             }
             for (ChessPosition cPos : moveList) {
-                newChessBoard = new ChessBoard();
+               newChessBoard = new ChessBoard();
                 combine(newChessBoard);
                 newChessBoard.step(cPos);
-                boardValue = -minMax(depth - 1, newChessBoard, ChessColor.WHITE);
-                cPos.figure.undo();
+                boardValue = minMax(depth - 1, newChessBoard, ChessColor.WHITE);
                 newChessBoard.undo(); // return removed figures
                 if (boardValue < bestValue) {
                     bestValue = boardValue;
                     bestMove = cPos;
                 }
             }
+            return bestValue;
         }
 
         return bestValue;

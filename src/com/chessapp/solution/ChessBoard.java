@@ -17,7 +17,8 @@ public class ChessBoard {
 
     public List<Figure> figuresWhite;
     public List<Figure> figuresBlack;
-    public Figure saveFig;
+    private List<Figure> saveFigs;
+    private List<ChessPosition> saveMoves;
     public List<ChessPosition> moveList;
     AIalpha aIalpha;
     ChessTile[][] saveState;
@@ -27,6 +28,8 @@ public class ChessBoard {
         moveList = new ArrayList<>();
         chessTiles = new ChessTile[8][8];
         saveState = new ChessTile[8][8]; //mmmmmm
+        saveFigs = new ArrayList<>();
+        saveMoves = new ArrayList<>();
         figuresWhite = new ArrayList<>();
         figuresBlack = new ArrayList<>();
         for (int i = 0; i < 8; i++){
@@ -122,42 +125,54 @@ public class ChessBoard {
                 chessTiles[i][j].figure = null;
             }
         }
-        /*for (Figure figure:allFig){
+         for (Figure figure:allFig){
             chessTiles[figure.x][figure.y].figure = figure;
-        }*/
+        }
     }
 
     public void step(ChessPosition chessPosition){
+        saveMoves.add(new ChessPosition(chessPosition.figure.x, chessPosition.figure.y, chessPosition.figure));
         chessPosition.figure.step(chessPosition);
+
+
         stepsUp();
     }
+
+
     public void undo(){
-        if (saveFig != null && saveFig.color == ChessColor.BLACK)
-            figuresBlack.add(saveFig);
-        if (saveFig != null && saveFig.color == ChessColor.WHITE)
-            figuresWhite.add(saveFig);
+        if (saveFigs.size() != 0){
+            for (Figure figure: saveFigs){
+                if (figure.color == ChessColor.BLACK){
+                    figuresBlack.add(figure);
+                }else {
+                    figuresWhite.add(figure);
+                }
+            }
+        }
+        if (saveMoves.size() != 0)
+        for (ChessPosition csSave: saveMoves){
+            csSave.figure.step(csSave);
+        }
     }
 
     public void updateWhite(){
 
         //stepsUp();
-        aIalpha.minMax(1, this,ChessColor.WHITE);
+        //aIalpha.minMaxRoot(3, this,ChessColor.WHITE);
 
-        step(aIalpha.bestMove);
+        step(aIalpha.minMaxRoot(3, this,ChessColor.WHITE));
 
-        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
+//        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
         for (int i = 0; i < figuresWhite.size(); i++){
-//moveList.addAll(figuresWhite.get(i).move(this));
             for (int j = 0; j < figuresBlack.size(); j++){
                 if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
-                    saveFig = figuresBlack.get(j);
+                    saveFigs.add(figuresBlack.get(j));
                     figuresBlack.remove(j);
                 }
             }
         }
 
-        stepsUp();
     }
 
     public void updateBlack(){
@@ -169,15 +184,12 @@ public class ChessBoard {
 
         for (int i = 0; i < figuresBlack.size(); i++){
             for (int j = 0; j < figuresWhite.size(); j++){
-                if (figuresBlack.get(i).y == figuresWhite.get(j).y && figuresBlack.get(i).x == figuresWhite.get(j).x){
-                    saveFig = figuresWhite.get(j);
+                if (figuresWhite.get(j).y == figuresBlack.get(i).y && figuresWhite.get(j).x == figuresBlack.get(i).x){
+                    saveFigs.add(figuresWhite.get(j));
                     figuresWhite.remove(j);
                 }
             }
         }
-
-        stepsUp();
-
     }
 
 
