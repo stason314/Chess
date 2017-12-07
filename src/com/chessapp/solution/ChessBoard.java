@@ -116,9 +116,6 @@ public class ChessBoard {
 
 
     public void stepsUp(){
-
-
-
         List<Figure> allFig = new ArrayList<>();
         allFig.addAll(figuresBlack);
         allFig.addAll(figuresWhite);
@@ -130,7 +127,7 @@ public class ChessBoard {
             }
         }
          for (Figure figure:allFig){
-             //System.out.println(figure.x + " " + figure.y + " --" + figure);
+            // System.out.println(figure.x + " " + figure.y + " --" + figure);
             chessTiles[figure.x][figure.y].figure = figure;
         }
     }
@@ -185,7 +182,7 @@ public class ChessBoard {
         //stepsUp();
         //aIalpha.minMaxRoot(3, this,ChessColor.WHITE);
 
-        step(aIalpha.minMaxRoot(3, this,ChessColor.WHITE));
+        step(aIalpha.minMaxRoot(4, this,ChessColor.WHITE));
 
 //        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
@@ -201,7 +198,7 @@ public class ChessBoard {
     }
 
     public void updateBlack(){
-        step(aIalpha.minMaxRoot(2, this, ChessColor.BLACK));
+        step(aIalpha.minMaxRoot(4, this, ChessColor.BLACK));
        // System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
 
