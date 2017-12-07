@@ -106,8 +106,11 @@ public class ChessBoard {
         figuresWhite.get(15).y = 7;
 
 
+
+
         aIalpha = new AIalpha(this);
         //stepsUp();
+
 
     }
 
@@ -127,6 +130,7 @@ public class ChessBoard {
             }
         }
          for (Figure figure:allFig){
+             //System.out.println(figure.x + " " + figure.y + " --" + figure);
             chessTiles[figure.x][figure.y].figure = figure;
         }
     }
@@ -134,7 +138,25 @@ public class ChessBoard {
     public void step(ChessPosition chessPosition){
         saveMoves.add(new ChessPosition(chessPosition.figure.x, chessPosition.figure.y, chessPosition.figure));
         chessPosition.figure.step(chessPosition);
-
+        if (chessPosition.figure.color == ChessColor.WHITE){
+            for (int i = 0; i < figuresWhite.size(); i++){
+                for (int j = 0; j < figuresBlack.size(); j++){
+                    if (figuresWhite.get(i).y == figuresBlack.get(j).y && figuresWhite.get(i).x == figuresBlack.get(j).x){
+                        saveFigs.add(figuresBlack.get(j));
+                        figuresBlack.remove(j);
+                    }
+                }
+            }
+        }else {
+            for (int i = 0; i < figuresBlack.size(); i++){
+                for (int j = 0; j < figuresWhite.size(); j++){
+                    if (figuresWhite.get(j).y == figuresBlack.get(i).y && figuresWhite.get(j).x == figuresBlack.get(i).x){
+                        saveFigs.add(figuresWhite.get(j));
+                        figuresWhite.remove(j);
+                    }
+                }
+            }
+        }
 
         stepsUp();
     }
@@ -154,6 +176,8 @@ public class ChessBoard {
         for (ChessPosition csSave: saveMoves){
             csSave.figure.step(csSave);
         }
+        saveFigs.clear();
+        saveMoves.clear();
     }
 
     public void updateWhite(){
@@ -161,7 +185,7 @@ public class ChessBoard {
         //stepsUp();
         //aIalpha.minMaxRoot(3, this,ChessColor.WHITE);
 
-        step(aIalpha.minMaxRoot(2, this,ChessColor.WHITE));
+        step(aIalpha.minMaxRoot(3, this,ChessColor.WHITE));
 
 //        System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
@@ -177,7 +201,7 @@ public class ChessBoard {
     }
 
     public void updateBlack(){
-        step(aIalpha.minMaxRoot(1, this, ChessColor.BLACK));
+        step(aIalpha.minMaxRoot(2, this, ChessColor.BLACK));
        // System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
 
