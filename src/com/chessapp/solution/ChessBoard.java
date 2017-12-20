@@ -198,7 +198,7 @@ public class ChessBoard {
     }
 
     public void updateBlack(){
-        step(aIalpha.minMaxRoot(4, this, ChessColor.BLACK));
+        step(aIalpha.minMaxRoot(2, this, ChessColor.BLACK));
        // System.out.println(aIalpha.figure + " --" + aIalpha.bestMove.x + " " + aIalpha.bestMove.y);
 
 
