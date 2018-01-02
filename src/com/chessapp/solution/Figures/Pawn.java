@@ -18,10 +18,28 @@ public class Pawn extends Figure {
 
     private boolean firstStep;
 
+    double pawnEvalWhite[][] = {
+    {0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,},
+    {5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,},
+    {1.0,  1.0,  2.0,  3.0,  3.0,  2.0,  1.0,  1.0,},
+    {0.5,  0.5,  1.0,  2.5,  2.5,  1.0,  0.5,  0.5,},
+    {0.0,  0.0,  0.0,  2.0,  2.0,  0.0,  0.0,  0.0,},
+    {0.5, -0.5, -1.0,  0.0,  0.0, -1.0, -0.5,  0.5,},
+    {0.5,  1.0, 1.0,  -2.0, -2.0,  1.0,  1.0,  0.5,},
+    {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+                                    };
+
     public Pawn(ChessColor chessColor) {
         color = chessColor;
         firstStep = true;
         weight = 10;
+
+        for (int i = 0; i < pawnEvalWhite.length; i++){
+            System.out.println();
+            for (int j = 0; j < pawnEvalWhite.length; j++){
+                System.out.print(pawnEvalWhite[i][j]);
+            }
+        }
 
     }
 
