@@ -16,10 +16,24 @@ import java.util.List;
  */
 public class Queen extends Figure {
 
+    double eval[][] = {
+            { -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0},
+            { -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0},
+            { -1.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0},
+            { -0.5,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5},
+            {  0.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5},
+            { -1.0,  0.5,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0},
+            { -1.0,  0.0,  0.5,  0.0,  0.0,  0.0,  0.0, -1.0},
+            { -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0},
+    };
+
+    int defaultWeight;
+
     public Queen(ChessColor chessColor) {
         color = chessColor;
         weight = 100;
-        attackWeight = weight;
+        defaultWeight =weight;
+
     }
 
     @Override
@@ -164,7 +178,7 @@ public class Queen extends Figure {
         savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
-
+        weight = defaultWeight + (int)eval[x][y];
     }
 
     @Override

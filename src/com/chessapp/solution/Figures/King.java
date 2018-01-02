@@ -16,10 +16,33 @@ import java.util.List;
  */
 public class King extends Figure {
 
+    double eval[][] = {
+            {-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+            {-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+            {-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+            {-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+            {-2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0},
+            {-1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0},
+            { 2.0,  2.0,  0.0,  0.0,  0.0,  0.0,  2.0,  2.0 },
+            { 2.0,  3.0,  1.0,  0.0,  0.0,  1.0,  3.0,  2.0},
+    };
+
+    int defaultWeight;
+
     public King(ChessColor chessColor) {
         color = chessColor;
         weight = 900;
-        attackWeight = weight;
+        defaultWeight =weight;
+
+        if (chessColor == ChessColor.BLACK){
+            for (int i = 0; i < eval.length; i++){
+                for (int j = 0; j < eval.length / 2; j++){
+                    double tmp = eval[i][j];
+                    eval[i][j] = eval[eval.length - i - 1][eval.length - j - 1];
+                    eval[eval.length - i - 1][eval.length - j - 1] = tmp;
+                }
+            }
+        }
     }
 
     @Override
@@ -124,6 +147,7 @@ public class King extends Figure {
         savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
+        weight = defaultWeight + (int)eval[x][y];
 
     }
 

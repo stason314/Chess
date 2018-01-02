@@ -16,10 +16,24 @@ import java.util.List;
  */
 public class Knight extends Figure {
 
+    double eval[][] = {
+            {-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0},
+            {-4.0, -2.0,  0.0,  0.0,  0.0,  0.0, -2.0, -4.0},
+            {-3.0,  0.0,  1.0,  1.5,  1.5,  1.0,  0.0, -3.0},
+            {-3.0,  0.5,  1.5,  2.0,  2.0,  1.5,  0.5, -3.0},
+            {-3.0,  0.0,  1.5,  2.0,  2.0,  1.5,  0.0, -3.0},
+            {-3.0,  0.5,  1.0,  1.5,  1.5,  1.0,  0.5, -3.0},
+            {-4.0, -2.0,  0.0,  0.5,  0.5,  0.0, -2.0, -4.0},
+            {-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0},
+    };
+
+    int defaultWeight;
+
+
     public Knight(ChessColor chessColor) {
         color = chessColor;
         weight = 30;
-        attackWeight = weight;
+        defaultWeight = weight;
     }
 
     @Override
@@ -109,6 +123,7 @@ public class Knight extends Figure {
         savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
+        weight = defaultWeight + (int)eval[x][y];
 
     }
 

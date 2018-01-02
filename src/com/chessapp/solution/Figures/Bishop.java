@@ -16,10 +16,33 @@ import java.util.List;
  */
 public class Bishop extends Figure {
 
+    double eval[][] = {
+            { -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0},
+            { -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0},
+            { -1.0,  0.0,  0.5,  1.0,  1.0,  0.5,  0.0, -1.0},
+            { -1.0,  0.5,  0.5,  1.0,  1.0,  0.5,  0.5, -1.0},
+            { -1.0,  0.0,  1.0,  1.0,  1.0,  1.0,  0.0, -1.0},
+            { -1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0, -1.0},
+            { -1.0,  0.5,  0.0,  0.0,  0.0,  0.0,  0.5, -1.0},
+            { -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0},
+    };
+
+    int defaultWeight;
+
     public Bishop(ChessColor chessColor) {
         color = chessColor;
         weight = 30;
-        attackWeight = weight;
+        defaultWeight =weight;
+
+        if (chessColor == ChessColor.BLACK){
+            for (int i = 0; i < eval.length; i++){
+                for (int j = 0; j < eval.length / 2; j++){
+                    double tmp = eval[i][j];
+                    eval[i][j] = eval[eval.length - i - 1][eval.length - j - 1];
+                    eval[eval.length - i - 1][eval.length - j - 1] = tmp;
+                }
+            }
+        }
     }
 
     @Override
@@ -116,6 +139,7 @@ public class Bishop extends Figure {
         savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
+        weight = defaultWeight + (int)eval[x][y];
 
     }
 
