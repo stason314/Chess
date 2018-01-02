@@ -43,7 +43,7 @@ public class AIalpha implements Runnable{
                 boardValue = minMax(depth - 1, newChessBoard, ChessColor.BLACK, -10000, 10000);
                 newChessBoard.undo();
                // System.out.println(boardValue + " " + cPos.figure.x + " " + cPos.figure.y + " " + cPos.figure);
-                if (boardValue > bestValue){
+                if (boardValue >= bestValue){
                     bestValue = boardValue;
                    // bestMoves.add(cPos);
                     bestMoveFounded = cPos;

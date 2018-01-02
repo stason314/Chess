@@ -18,7 +18,7 @@ public class Pawn extends Figure {
 
     private boolean firstStep;
 
-    double pawnEvalWhite[][] = {
+    double pawnEval[][] = {
     {0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,},
     {5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,},
     {1.0,  1.0,  2.0,  3.0,  3.0,  2.0,  1.0,  1.0,},
@@ -26,18 +26,25 @@ public class Pawn extends Figure {
     {0.0,  0.0,  0.0,  2.0,  2.0,  0.0,  0.0,  0.0,},
     {0.5, -0.5, -1.0,  0.0,  0.0, -1.0, -0.5,  0.5,},
     {0.5,  1.0, 1.0,  -2.0, -2.0,  1.0,  1.0,  0.5,},
-    {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.0}
                                     };
+
+    int defaultWeight;
+
 
     public Pawn(ChessColor chessColor) {
         color = chessColor;
         firstStep = true;
         weight = 10;
+        defaultWeight = weight;
 
-        for (int i = 0; i < pawnEvalWhite.length; i++){
-            System.out.println();
-            for (int j = 0; j < pawnEvalWhite.length; j++){
-                System.out.print(pawnEvalWhite[i][j]);
+        if (chessColor == ChessColor.BLACK){
+            for (int i = 0; i < pawnEval.length; i++){
+                for (int j = 0; j < pawnEval.length / 2; j++){
+                    double tmp = pawnEval[i][j];
+                    pawnEval[i][j] = pawnEval[pawnEval.length - i - 1][pawnEval.length - j - 1];
+                    pawnEval[pawnEval.length - i - 1][pawnEval.length - j - 1] = tmp;
+                }
             }
         }
 
@@ -120,6 +127,7 @@ public class Pawn extends Figure {
         savePos = new ChessPosition(x, y, this);
         x = chessPosition.x;
         y = chessPosition.y;
+        weight = defaultWeight + (int)pawnEval[x][y];
 
     }
 
